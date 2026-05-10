@@ -9,21 +9,6 @@
   :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-pale:#F5EDD0;--dark:#0F0D09;--dark-card:#1A1208;--cream:#FAF6ED;--text:#FAF6ED;--text-muted:rgba(250,246,237,.5);--accent-red:#C84B5A;--accent-green:#3A8C68;--accent-blue:#3A6FA8;--border:rgba(201,168,76,.2);--card-bg:rgba(255,255,255,.04);--card-border:rgba(201,168,76,.15)}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6}
-
-  /* SETUP */
-  #setup-panel{background:#1A0E06;border-bottom:2px solid var(--gold);padding:24px 40px}
-  .setup-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
-  .setup-row{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
-  .setup-field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:220px}
-  .setup-field label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase}
-  .setup-field input{background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--cream);outline:none;transition:border-color .2s;width:100%}
-  .setup-field input:focus{border-color:var(--gold)}
-  .setup-field input::placeholder{color:rgba(250,246,237,.2)}
-  .btn-cfg{background:var(--gold);color:var(--dark);border:none;padding:10px 24px;border-radius:8px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:opacity .2s;height:40px}
-  .btn-cfg:hover{opacity:.85}
-  .cfg-msg{font-size:12px;margin-top:8px}
-
-  /* TOP BAR */
   .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid var(--border);background:rgba(26,18,8,.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
   .topbar-brand .logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--cream)}
   .topbar-brand .logo span{color:var(--gold)}
@@ -36,7 +21,6 @@
   .btn-refresh:hover{background:rgba(201,168,76,.25)}
   .btn-refresh.spinning span{display:inline-block;animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-
   .main{padding:28px 40px;max-width:1400px;margin:0 auto}
   .last-updated{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--text-muted);text-align:right;margin-bottom:20px}
   .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:28px}
@@ -97,24 +81,6 @@
 </head>
 <body>
 
-<!-- SETUP PANEL -->
-<div id="setup-panel">
-  <div class="setup-title">⚙️ &nbsp;Configuración JSONBin.io</div>
-  <div class="setup-row">
-    <div class="setup-field">
-      <label>BIN ID</label>
-      <input id="cfg-bin" placeholder="p.ej. 6650f3abacd3cb34a85b1234" spellcheck="false">
-    </div>
-    <div class="setup-field">
-      <label>Master API Key</label>
-      <input id="cfg-key" type="password" placeholder="$2a$10$..." spellcheck="false">
-    </div>
-    <button class="btn-cfg" onclick="saveConfig()">Conectar</button>
-  </div>
-  <div class="cfg-msg" id="cfg-msg" style="color:var(--text-muted)">Ingresa las credenciales del mismo JSONBin que usan los participantes y presiona Conectar.</div>
-</div>
-
-<!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-brand">
     <div class="logo">Admin <span>·</span> Dashboard</div>
@@ -127,13 +93,12 @@
 </div>
 
 <div class="main">
-  <div class="last-updated" id="last-updated">Esperando configuración...</div>
-
+  <div class="last-updated" id="last-updated">Cargando...</div>
   <div class="stats-row">
     <div class="stat-card"><div class="stat-label">Participantes</div><div class="stat-val" id="stat-total">—</div><div class="stat-sub">respuestas recibidas</div></div>
     <div class="stat-card green"><div class="stat-label">Score Global</div><div class="stat-val green" id="stat-global">—</div><div class="stat-sub">promedio /5.0</div></div>
-    <div class="stat-card red"><div class="stat-label">Pregunta más baja</div><div class="stat-val" id="stat-lowest-val" style="font-size:26px;color:var(--accent-red)">—</div><div class="stat-sub" id="stat-lowest-q" style="font-size:11px">—</div></div>
-    <div class="stat-card green"><div class="stat-label">Pregunta más alta</div><div class="stat-val green" id="stat-highest-val" style="font-size:26px">—</div><div class="stat-sub" id="stat-highest-q" style="font-size:11px">—</div></div>
+    <div class="stat-card red"><div class="stat-label">Pregunta más baja</div><div class="stat-val" id="stat-lowest-val" style="font-size:26px;color:var(--accent-red)">—</div><div class="stat-sub" id="stat-lowest-q">—</div></div>
+    <div class="stat-card green"><div class="stat-label">Pregunta más alta</div><div class="stat-val green" id="stat-highest-val" style="font-size:26px">—</div><div class="stat-sub" id="stat-highest-q">—</div></div>
     <div class="stat-card blue"><div class="stat-label">Áreas representadas</div><div class="stat-val blue" id="stat-areas">—</div><div class="stat-sub" id="stat-areas-list">—</div></div>
   </div>
 
@@ -157,7 +122,7 @@
     <div class="sec-title">Score promedio de cada dimensión</div>
     <div class="panel">
       <table class="q-table">
-        <thead><tr><th>ID</th><th>Dimensión</th><th>Score</th><th>Distribución de respuestas (1→5)</th></tr></thead>
+        <thead><tr><th>ID</th><th>Dimensión</th><th>Score</th><th>Distribución (1→5)</th></tr></thead>
         <tbody id="q-table-body"><tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text-muted)">Esperando datos...</td></tr></tbody>
       </table>
     </div>
@@ -202,50 +167,12 @@
 const QLABELS={a1:'Rol de la innovación en la estrategia',a2:'Tipos de innovación y portafolio',a3:'KPIs diferenciados por tipo',b1:'Generación de ideas e insights',b2:'Criterios de aprobación por gate',b3:'Equipos multifuncionales integrados',b4:'Validación con consumidor',b5:'Time-to-market y agilidad',c1:'Plan de go-to-market pre-lanzamiento',c2:'Capacitación de fuerza de ventas',c3:'Soporte de marketing post-lanzamiento',c4:'Ejecución en punto de venta',d1:'Dashboard de tracking post-lanzamiento',d2:'KPIs pre-definidos y acordados',d3:'Proceso de aprendizaje y post-mortem',d4:'Protocolo aceleración/descontinuación'};
 const QIDS=Object.keys(QLABELS);
 const BLOCKS={a:{label:'A · Estrategia',qs:['a1','a2','a3'],color:'#C9A84C'},b:{label:'B · Proceso',qs:['b1','b2','b3','b4','b5'],color:'#C84B5A'},c:{label:'C · Lanzamiento',qs:['c1','c2','c3','c4'],color:'#3A8C68'},d:{label:'D · Medición',qs:['d1','d2','d3','d4'],color:'#3A6FA8'}};
-const STOPWORDS=new Set(['de','la','el','en','y','a','que','no','se','es','los','las','un','una','con','para','por','del','al','lo','como','más','pero','hay','tiene','su','sus','este','esta','nuestro','nuestra','muy','bien','sin','si','o','ni','esto','ya','puede','cuando','cada','les','son','está','fue','ser','han','todo','todos','toda','también','nos','me','tu','te','the','and','is','to','of','in','are','that','this','with','for','on','at','or','an','we','it','its','from','has','have','not','be','do','by','as','our','their','they','was','were','been','poco','solo','aún','falta']);
-
-let CFG={binId:'',apiKey:''};
-const LS_KEY='taller_cfg';
+const STOPWORDS=new Set(['de','la','el','en','y','a','que','no','se','es','los','las','un','una','con','para','por','del','al','lo','como','más','pero','hay','tiene','su','sus','este','esta','nuestro','nuestra','muy','bien','sin','si','o','ni','esto','ya','puede','cuando','cada','les','son','está','fue','ser','han','todo','todos','toda','también','nos','me','tu','te','the','and','is','to','of','in','are','that','this','with','for','on','at','or','an','we','it','from','has','have','not','be','do','by','as','our','they','was','were','been','poco','solo','aún','falta']);
+const CFG={binId:'',apiKey:''};
 let allParticipants=[];
 let activeWcBlock='all';
 
-function loadConfig(){
-  try{
-    const s=localStorage.getItem(LS_KEY);
-    if(s) CFG=JSON.parse(s);
-    if(CFG.binId) document.getElementById('cfg-bin').value=CFG.binId;
-    if(CFG.apiKey) document.getElementById('cfg-key').value=CFG.apiKey;
-    if(CFG.binId&&CFG.apiKey){
-      document.getElementById('cfg-msg').textContent='✓ Configuración cargada desde sesión anterior.';
-      document.getElementById('cfg-msg').style.color='#3A8C68';
-      loadData();
-    }
-  }catch(e){}
-}
-
-async function saveConfig(){
-  const binId=document.getElementById('cfg-bin').value.trim();
-  const apiKey=document.getElementById('cfg-key').value.trim();
-  if(!binId||!apiKey){alert('Completa ambos campos.');return;}
-  const msg=document.getElementById('cfg-msg');
-  msg.style.color='var(--text-muted)';
-  msg.textContent='Verificando...';
-  try{
-    const r=await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest',{headers:{'X-Master-Key':apiKey}});
-    if(!r.ok) throw new Error('HTTP '+r.status+' — revisa BIN ID y API Key');
-    CFG={binId,apiKey};
-    localStorage.setItem(LS_KEY,JSON.stringify(CFG));
-    msg.style.color='#3A8C68';
-    msg.textContent='✓ Conectado correctamente';
-    loadData();
-  }catch(e){
-    msg.style.color='#C84B5A';
-    msg.textContent='❌ '+e.message;
-  }
-}
-
 async function loadData(){
-  if(!CFG.binId||!CFG.apiKey){showToast('⚠️  Configura las credenciales primero');return;}
   const btn=document.getElementById('refresh-btn');
   btn.classList.add('spinning');
   try{
@@ -286,7 +213,6 @@ function renderDashboard(ps){
   const areaCount={};
   ps.forEach(p=>{areaCount[p.area]=(areaCount[p.area]||0)+1;});
   const areaList=Object.keys(areaCount);
-
   document.getElementById('stat-total').textContent=ps.length;
   document.getElementById('stat-global').textContent=globalAvg?globalAvg.toFixed(1):'—';
   document.getElementById('stat-lowest-val').textContent=lowestQ?qAvgs[lowestQ].toFixed(1):'—';
@@ -295,21 +221,15 @@ function renderDashboard(ps){
   document.getElementById('stat-highest-q').textContent=highestQ?highestQ.toUpperCase()+' · '+QLABELS[highestQ].substring(0,30)+'…':'—';
   document.getElementById('stat-areas').textContent=areaList.length;
   document.getElementById('stat-areas-list').textContent=areaList.slice(0,3).join(', ')+(areaList.length>3?' +'+(areaList.length-3):'');
-
-  // Block scores
   document.getElementById('block-score-list').innerHTML=Object.entries(BLOCKS).map(([k,block])=>{
-    const v=blockAvgs[k];
-    const pct=v?v/5*100:0;
+    const v=blockAvgs[k];const pct=v?v/5*100:0;
     const color=v>=4?'#3A8C68':v>=3?'#C9A84C':'#C84B5A';
     return `<div class="block-score-item"><div class="bsi-header"><span class="bsi-name">${block.label}</span><span class="bsi-val" style="color:${color}">${v?v.toFixed(1):'—'}</span></div><div class="bsi-bar-wrap"><div class="bsi-bar" style="width:${pct}%;background:${color}"></div></div></div>`;
   }).join('');
-
-  // Area dist
   document.getElementById('area-dist').innerHTML=Object.entries(areaCount).map(([area,count])=>{
     const pct=Math.round(count/ps.length*100);
     return `<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;color:rgba(250,246,237,.7)">${area}<span style="color:var(--gold)">${count} (${pct}%)</span></div><div style="background:rgba(255,255,255,.06);border-radius:3px;height:4px;overflow:hidden"><div style="width:${pct}%;height:100%;background:var(--gold);border-radius:3px"></div></div></div>`;
   }).join('');
-
   drawRadar(blockAvgs);
   renderQTable(qAvgs,ps);
   renderPTable(ps,blockAvgs);
@@ -324,11 +244,9 @@ function drawRadar(blockAvgs){
   ctx.clearRect(0,0,380,320);
   const cx=190,cy=170,maxR=120;
   const blocks=Object.entries(BLOCKS);
-  const n=blocks.length,startAngle=-Math.PI/2;
-  const angleStep=Math.PI*2/n;
+  const n=blocks.length,startAngle=-Math.PI/2,angleStep=Math.PI*2/n;
   for(let lv=1;lv<=5;lv++){
-    const r=maxR*lv/5;
-    ctx.beginPath();
+    const r=maxR*lv/5;ctx.beginPath();
     for(let i=0;i<=n;i++){const a=startAngle+i*angleStep;i===0?ctx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));}
     ctx.closePath();ctx.strokeStyle='rgba(201,168,76,.12)';ctx.lineWidth=1;ctx.stroke();
     ctx.fillStyle='rgba(250,246,237,.2)';ctx.font='9px DM Mono,monospace';ctx.fillText(lv,cx+3,cy-r+3);
@@ -347,8 +265,7 @@ function drawRadar(blockAvgs){
 
 function renderQTable(qAvgs,ps){
   document.getElementById('q-table-body').innerHTML=QIDS.map(q=>{
-    const v=qAvgs[q];
-    const vStr=v!=null?v.toFixed(1):'—';
+    const v=qAvgs[q];const vStr=v!=null?v.toFixed(1):'—';
     const cls=v==null?'':v<2.5?'sb-lo':v<3.5?'sb-mid':'sb-hi';
     const dist=[1,2,3,4,5].map(s=>ps.filter(p=>p.scores[q]===s).length);
     const maxD=Math.max(...dist,1);
@@ -392,8 +309,7 @@ function renderWordCloud(ps,blockFilter){
   if(!entries.length){ctx.fillStyle='rgba(250,246,237,.2)';ctx.font='14px DM Sans,sans-serif';ctx.textAlign='center';ctx.fillText('Sin texto de gaps aún',W/2,H/2);ctx.textAlign='left';return;}
   const maxF=entries[0][1];
   const palette=['#C9A84C','#E8C97A','#F5EDD0','#C84B5A','#3A8C68','#3A6FA8','#E09B30','#F5A623','#7EC8A4','#8FBBDF'];
-  const placed=[];
-  const cx=W/2,cy=H/2;
+  const placed=[];const cx=W/2,cy=H/2;
   function overlaps(nx,ny,nw,nh){return placed.some(([px,py,pw,ph])=>nx<px+pw&&nx+nw>px&&ny<py+ph&&ny+nh>py);}
   entries.forEach(([word,count],i)=>{
     const size=Math.max(11,Math.min(40,12+(count/maxF)*28));
@@ -416,7 +332,7 @@ function renderWordCloud(ps,blockFilter){
 function renderGapList(ps,blockFilter){
   const items=[];
   ps.forEach(p=>{Object.entries(p.gaps||{}).forEach(([qid,text])=>{if(!text||!text.trim()) return;if(blockFilter!=='all'&&qid[0]!==blockFilter) return;items.push({qid,text,area:p.area});});});
-  document.getElementById('gap-list').innerHTML=items.length?items.map(it=>`<div class="gap-item"><div class="gap-item-header"><span class="gap-item-qid">${it.qid.toUpperCase()} · ${(QLABELS[it.qid]||'').substring(0,36)}…</span><span class="gap-item-area">${it.area}</span></div><div class="gap-item-text">${it.text}</div></div>`).join(''):'<div style="color:var(--text-muted);font-size:13px;padding:40px 0;text-align:center">Sin comentarios de gap aún</div>';
+  document.getElementById('gap-list').innerHTML=items.length?items.map(it=>`<div class="gap-item"><div class="gap-item-header"><span class="gap-item-qid">${it.qid.toUpperCase()} · ${(QLABELS[it.qid]||'').substring(0,36)}…</span><span class="gap-item-area">${it.area}</span></div><div class="gap-item-text">${it.text}</div></div>`).join(''):'<div style="color:var(--text-muted);font-size:13px;padding:40px 0;text-align:center">Sin comentarios aún</div>';
 }
 
 document.querySelectorAll('.wc-filter').forEach(btn=>{
@@ -431,8 +347,8 @@ document.querySelectorAll('.wc-filter').forEach(btn=>{
 
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
-loadConfig();
-setInterval(()=>{if(CFG.binId&&CFG.apiKey) loadData();},30000);
+loadData();
+setInterval(loadData,30000);
 </script>
 </body>
 </html>
