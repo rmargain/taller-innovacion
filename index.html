@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller de Innovación · Bebidas Alcohólicas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:#1A1208;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+  h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,52px);font-weight:900;color:#FAF6ED;text-align:center;line-height:1.15;margin-bottom:12px}
+  h1 span{color:#C9A84C}
+  .sub{font-size:15px;color:rgba(250,246,237,.5);text-align:center;margin-bottom:48px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;width:100%;max-width:700px}
+  .card{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:16px;padding:36px 32px;text-decoration:none;transition:all .2s;display:block}
+  .card:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.5);transform:translateY(-2px)}
+  .card-icon{font-size:36px;margin-bottom:16px}
+  .card-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
+  .card-tag.gold{color:#C9A84C}
+  .card-tag.green{color:#3A8C68}
+  .card h2{font-family:'Playfair Display',serif;font-size:22px;color:#FAF6ED;margin-bottom:8px}
+  .card p{font-size:13px;color:rgba(250,246,237,.5);line-height:1.6}
+  .footer{margin-top:48px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(250,246,237,.2);text-align:center}
+</style>
+</head>
+<body>
+  <h1>Taller de <span>Innovación</span></h1>
+  <p class="sub">Gestión Integral de la Innovación · Bebidas Alcohólicas</p>
+  <div class="cards">
+    <a class="card" href="participante.html">
+      <div class="card-icon">📋</div>
+      <div class="card-tag gold">Para participantes</div>
+      <h2>Diagnóstico</h2>
+      <p>Completa tu evaluación de madurez del proceso de innovación. Tarda aprox. 10 minutos.</p>
+    </a>
+    <a class="card" href="admin.html">
+      <div class="card-icon">📊</div>
+      <div class="card-tag green">Para el facilitador</div>
+      <h2>Dashboard Admin</h2>
+      <p>Visualiza las respuestas del equipo en tiempo real, scores promedio y word cloud de gaps.</p>
+    </a>
+  </div>
+  <div class="footer">TALLER ESTRATÉGICO · USO INTERNO</div>
+</body>
+</html>

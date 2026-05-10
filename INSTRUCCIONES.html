@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Configuración · Taller de Innovación</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:#FAF6ED;color:#2D2110;font-size:15px;line-height:1.7;padding:40px 20px}
+  .wrap{max-width:720px;margin:0 auto}
+  h1{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,40px);font-weight:700;margin-bottom:8px;color:#1A1208}
+  .intro{color:#7A6840;margin-bottom:40px;font-size:15px}
+  .step{background:#fff;border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:28px 32px;margin-bottom:20px;position:relative;padding-left:80px}
+  .step-num{position:absolute;left:24px;top:24px;font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:rgba(201,168,76,.3);line-height:1}
+  .step h3{font-size:17px;font-weight:600;margin-bottom:8px;color:#1A1208}
+  .step p{font-size:14px;color:#5A4830;margin-bottom:10px}
+  .step p:last-child{margin-bottom:0}
+  code{background:#F5EDD0;padding:2px 8px;border-radius:4px;font-family:'DM Mono',monospace;font-size:12.5px;color:#8B2635}
+  a{color:#8B2635;font-weight:600}
+  .note{background:#1A1208;color:rgba(250,246,237,.8);border-radius:8px;padding:16px 20px;font-size:13px;margin-top:32px;line-height:1.7}
+  .note strong{color:#C9A84C}
+  img{max-width:100%;border-radius:8px;margin-top:10px;border:1px solid rgba(201,168,76,.2)}
+  .tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:#C9A84C;text-transform:uppercase;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tag">Configuración · Una sola vez</div>
+  <h1>Cómo activar el backend del taller</h1>
+  <p class="intro">Sigue estos pasos desde cualquier dispositivo (móvil o desktop). Tarda menos de 5 minutos y solo se hace una vez.</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <h3>Crear cuenta en JSONBin.io</h3>
+    <p>Ve a <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> y crea una cuenta gratuita con tu correo. No requiere tarjeta de crédito.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <h3>Crear el Bin de datos</h3>
+    <p>Una vez dentro, presiona el botón <strong>"+ Create Bin"</strong>.</p>
+    <p>En el editor que aparece, borra lo que haya y pega exactamente esto:</p>
+    <p><code>{"participants":[]}</code></p>
+    <p>Presiona <strong>"Create Bin"</strong> (o el botón de guardar). Verás que aparece un ID en la URL o encima del contenido — ese es tu <strong>BIN ID</strong>. Cópialo.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <h3>Obtener tu API Key</h3>
+    <p>En el menú superior de JSONBin, haz clic en tu nombre de usuario o en el ícono de perfil, y entra a <strong>"API Keys"</strong>.</p>
+    <p>Verás tu <strong>Master Key</strong> (empieza con <code>$2a$10$...</code>). Cópiala.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <h3>Subir los archivos a GitHub Pages</h3>
+    <p>Ve a <a href="https://github.com" target="_blank">github.com</a> y crea una cuenta gratuita si no tienes.</p>
+    <p>Crea un repositorio nuevo (botón <strong>"New"</strong> o <strong>"+"</strong>). Nómbralo por ejemplo <code>taller-innovacion</code>. Márcalo como <strong>Public</strong>.</p>
+    <p>Sube los 3 archivos HTML (<code>index.html</code>, <code>participante.html</code>, <code>admin.html</code>) arrastrándolos al repositorio.</p>
+    <p>Ve a <strong>Settings → Pages</strong>, en "Branch" selecciona <code>main</code> y guarda. En 1-2 minutos tu sitio estará en <code>https://TU_USUARIO.github.io/taller-innovacion</code>.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <h3>Configurar las credenciales en los archivos</h3>
+    <p>Abre la URL de GitHub Pages en tu navegador (móvil o desktop). Entra a <strong>participante.html</strong> y al admin — en ambos verás un panel gris oscuro en la parte superior.</p>
+    <p>Pega el <strong>BIN ID</strong> y la <strong>Master Key</strong> en los campos correspondientes y presiona <strong>"Guardar y verificar conexión"</strong> (o <strong>"Conectar"</strong>).</p>
+    <p>Si aparece <strong>"✓ Conectado correctamente"</strong>, ¡listo! Las credenciales quedan guardadas en el navegador de ese dispositivo.</p>
+    <p><strong>Repite este paso en cada dispositivo que vaya a usar los archivos</strong> (solo una vez por dispositivo).</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">6</div>
+    <h3>Compartir con los participantes</h3>
+    <p>Comparte la URL directa a <code>participante.html</code> con todos los participantes por WhatsApp, email o QR. Ellos solo necesitan abrir el link — no instalan nada.</p>
+    <p>Tú abre <code>admin.html</code> en tu pantalla y presiona <strong>"Actualizar"</strong> para ver las respuestas en tiempo real.</p>
+  </div>
+
+  <div class="note">
+    <strong>¿Por qué GitHub Pages?</strong> Los archivos HTML funcionan perfectamente cuando se sirven desde una URL pública (https://). El problema anterior ocurría porque los archivos abiertos directamente desde el disco (<code>file://...</code>) tienen restricciones de seguridad del navegador que bloquean las llamadas a APIs externas. GitHub Pages resuelve esto de forma gratuita y permanente.
+  </div>
+</div>
+</body>
+</html>
