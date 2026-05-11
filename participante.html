@@ -70,51 +70,73 @@
 </style>
 </head>
 <body>
+
 <div class="header">
   <div class="header-tag">Taller de Innovación · Diagnóstico Participante</div>
   <h1>Gestión <span>Integral</span> de la Innovación</h1>
   <p class="header-sub">Evalúa la madurez de nuestro proceso actual · Tus respuestas se integrarán al análisis grupal</p>
 </div>
+
 <div class="identity-bar">
   <div class="identity-field"><label>Tu nombre (opcional)</label><input type="text" id="p-name" placeholder="Nombre o iniciales"></div>
   <div class="identity-field"><label>Área / Función</label><select id="p-area"><option value="">— Selecciona —</option><option>Marketing</option><option>Trade Marketing</option><option>Ventas</option><option>Producción / Operaciones</option><option>Finanzas</option><option>Innovación / I+D</option><option>Dirección General</option><option>Otra</option></select></div>
   <div class="identity-field"><label>Años en la empresa</label><select id="p-years"><option value="">— Selecciona —</option><option>Menos de 1 año</option><option>1–3 años</option><option>4–7 años</option><option>8–15 años</option><option>Más de 15 años</option></select></div>
 </div>
+
 <div class="container">
-  <div class="instructions"><div class="instructions-icon">📋</div><div><h3>Cómo completar este diagnóstico</h3><p>Califica del <strong style="color:var(--gold-light)">1 (Inicial)</strong> al <strong style="color:var(--gold-light)">5 (Excelente)</strong> cada práctica. Describe el gap que identificas. Al terminar presiona <strong style="color:var(--gold-light)">Enviar Respuestas</strong>.</p></div></div>
+  <div class="instructions"><div class="instructions-icon">📋</div><div><h3>Cómo completar este diagnóstico</h3><p>Para cada pregunta, califica del <strong style="color:var(--gold-light)">1 (Inicial)</strong> al <strong style="color:var(--gold-light)">5 (Excelente)</strong> qué tan madura es nuestra organización en esa práctica hoy. Describe el gap que identificas. Al terminar presiona <strong style="color:var(--gold-light)">Enviar Respuestas</strong>.</p></div></div>
+
   <div id="form-area">
     <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
     <div class="progress-label" id="progress-label">0 DE 16 PREGUNTAS RESPONDIDAS</div>
+
     <div class="block-header"><span class="block-badge">A · Estrategia</span><span class="block-title">Portafolio e Innovación</span></div>
     <div class="q-card" data-qid="a1"><div class="q-num">A.1</div><div class="q-text">Rol de la innovación en la estrategia de negocio</div><div class="q-bp">La innovación tiene un rol explícito en la estrategia de crecimiento con metas de volumen, valor y portafolio definidas por horizonte (1-3 años).</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-a1"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="a2"><div class="q-num">A.2</div><div class="q-text">Definición de tipos de innovación y distribución de portafolio</div><div class="q-bp">Existe una definición clara de Core / Adjacent / Transformacional con asignación de recursos diferenciada (p.ej. 70/20/10) y revisión periódica del balance.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-a2"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="a3"><div class="q-num">A.3</div><div class="q-text">KPIs diferenciados por tipo de innovación</div><div class="q-bp">Cada tipo de innovación tiene KPIs específicos acordes a su horizonte. Se evita medir la innovación transformacional con métricas de corto plazo.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-a3"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
+
     <div class="block-header"><span class="block-badge" style="background:var(--accent-red)">B · Proceso</span><span class="block-title">Desarrollo Stage-Gate</span></div>
     <div class="q-card" data-qid="b1"><div class="q-num">B.1</div><div class="q-text">Generación de ideas y fuentes de insight</div><div class="q-bp">Existe un proceso formal de generación de ideas con fuentes diversas (consumidor, tendencias, fuerza de ventas, competencia) y un banco de ideas activo y priorizado.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-b1"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="b2"><div class="q-num">B.2</div><div class="q-text">Criterios de aprobación por gate (go/kill/recycle)</div><div class="q-bp">Cada gate tiene criterios explícitos y predefinidos (financieros, técnicos, de consumidor). Las decisiones son objetivas, no solo por intuición o jerarquía.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-b2"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="b3"><div class="q-num">B.3</div><div class="q-text">Equipos multifuncionales integrados desde etapas tempranas</div><div class="q-bp">Marketing, Trade, Ventas, Producción y Finanzas participan activamente desde ideación. Hay un Innovation Lead con responsabilidad y autoridad claras.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-b3"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="b4"><div class="q-num">B.4</div><div class="q-text">Validación con consumidor a lo largo del proceso</div><div class="q-bp">Se realiza Voice of Consumer estructurada en al menos 3 etapas: concepto, prototipo/packaging y mercado de prueba. El consumidor no aparece solo en el lanzamiento.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-b4"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="b5"><div class="q-num">B.5</div><div class="q-text">Time-to-market y agilidad del proceso</div><div class="q-bp">El proceso es adaptable según el riesgo del proyecto. Las innovaciones core pueden tener un proceso express (3-6 meses). Se mide y reduce activamente el time-to-market.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-b5"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
+
     <div class="block-header"><span class="block-badge" style="background:var(--accent-green)">C · Lanzamiento</span><span class="block-title">Ejecución en Mercado</span></div>
     <div class="q-card" data-qid="c1"><div class="q-num">C.1</div><div class="q-text">Plan de go-to-market antes del lanzamiento</div><div class="q-bp">Existe un plan completo de lanzamiento antes de la comercialización: objetivos de distribución, plan de activación de trade, comunicación al consumidor y capacitación de ventas.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-c1"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="c2"><div class="q-num">C.2</div><div class="q-text">Capacitación de la fuerza de ventas en la innovación</div><div class="q-bp">La fuerza de ventas recibe training completo antes del lanzamiento (propuesta de valor, precios, materiales) con validación del conocimiento adquirido.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-c2"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="c3"><div class="q-num">C.3</div><div class="q-text">Soporte de marketing en el período crítico post-lanzamiento</div><div class="q-bp">La inversión de A&amp;P está garantizada para los primeros 6-12 meses con un calendario de actividades que acompaña activamente la innovación.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-c3"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="c4"><div class="q-num">C.4</div><div class="q-text">Ejecución en punto de venta con estándar definido</div><div class="q-bp">Existe un estándar de ejecución en PDV (share of shelf, exhibición, precio, POP) con seguimiento activo y medición del cumplimiento.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-c4"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
+
     <div class="block-header"><span class="block-badge" style="background:var(--accent-blue)">D · Medición</span><span class="block-title">Seguimiento y Aprendizaje</span></div>
     <div class="q-card" data-qid="d1"><div class="q-num">D.1</div><div class="q-text">Dashboard de tracking post-lanzamiento</div><div class="q-bp">Existe un dashboard activo que integra ventas, distribución, rentabilidad, indicadores de consumidor y cumplimiento de marketing, revisado en ciclos 30/90/180 días.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-d1"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="d2"><div class="q-num">D.2</div><div class="q-text">KPIs pre-definidos y aceptados por todas las áreas</div><div class="q-bp">Los KPIs de éxito fueron definidos y acordados antes del lanzamiento por todas las áreas. No se cambian los criterios de éxito a medio camino.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-d2"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="d3"><div class="q-num">D.3</div><div class="q-text">Proceso de aprendizaje y post-mortem de innovaciones</div><div class="q-bp">Existe un post-mortem formal de cada innovación (exitosa o fallida) cuyos aprendizajes se documentan y retroalimentan el siguiente ciclo.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-d3"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
     <div class="q-card" data-qid="d4"><div class="q-num">D.4</div><div class="q-text">Protocolo de aceleración o descontinuación de innovaciones</div><div class="q-bp">Existe un mecanismo formal y rápido para acelerar recursos en innovaciones exitosas, o descontinuar ordenadamente las que no cumplen expectativas.</div><div class="score-row"><span class="score-label-lo">Inicial</span><div class="dots-wrap"><button class="dot-btn" data-val="1">1</button><button class="dot-btn" data-val="2">2</button><button class="dot-btn" data-val="3">3</button><button class="dot-btn" data-val="4">4</button><button class="dot-btn" data-val="5">5</button></div><span class="score-label-hi">Excelente</span><span class="score-meaning" id="meaning-d4"></span></div><div class="gap-label">Gap / Área de Oportunidad</div><textarea class="gap-area" placeholder="¿Qué falta?"></textarea></div>
-    <div class="submit-area"><button class="submit-btn" id="submit-btn" onclick="submitResponses()"><span>📤</span> Enviar Respuestas al Facilitador</button><p class="submit-note">Tus respuestas se enviarán al backend compartido del taller.</p></div>
+
+    <div class="submit-area">
+      <button class="submit-btn" id="submit-btn" onclick="submitResponses()"><span>📤</span> Enviar Respuestas al Facilitador</button>
+      <p class="submit-note">Tus respuestas se enviarán al backend compartido del taller.</p>
+    </div>
   </div>
-  <div class="success-screen" id="success-screen"><div class="success-icon">✅</div><h2>¡Respuestas enviadas!</h2><p>Tu diagnóstico ha sido registrado. El facilitador integrará tu evaluación con la del equipo.</p><div class="success-id" id="success-id"></div></div>
+
+  <div class="success-screen" id="success-screen">
+    <div class="success-icon">✅</div>
+    <h2>¡Respuestas enviadas!</h2>
+    <p>Tu diagnóstico ha sido registrado. El facilitador integrará tu evaluación con la del equipo para presentar los resultados grupales.</p>
+    <div class="success-id" id="success-id"></div>
+    <a href="index.html" style="display:inline-block;margin-top:32px;padding:12px 32px;background:#E85D2F;color:#fff;text-decoration:none;border-radius:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;">← Volver al inicio</a>
+  </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
-const CFG = { binId: '', apiKey: '' };
+const CFG = { binId: 'JSONBIN_BIN_ID_PLACEHOLDER', apiKey: 'JSONBIN_API_KEY_PLACEHOLDER' };
 const QUESTIONS = ['a1','a2','a3','b1','b2','b3','b4','b5','c1','c2','c3','c4','d1','d2','d3','d4'];
 const MEANINGS = {1:'Aún no existe o es muy incipiente',2:'Existe pero de forma informal',3:'Proceso definido, aplicación inconsistente',4:'Proceso sólido, bien adoptado',5:'Referente de mejores prácticas'};
 const scores = {}, gaps = {};
+
 document.querySelectorAll('.q-card').forEach(card => {
   const qid = card.dataset.qid;
   card.querySelectorAll('.dot-btn').forEach(btn => {
@@ -131,23 +153,31 @@ document.querySelectorAll('.q-card').forEach(card => {
   const ta = card.querySelector('.gap-area');
   if (ta) ta.addEventListener('input', () => { gaps[qid] = ta.value.trim(); });
 });
+
 function updateProgress() {
   const n = Object.keys(scores).length;
   document.getElementById('progress-bar').style.width = Math.round(n/QUESTIONS.length*100) + '%';
   document.getElementById('progress-label').textContent = n + ' DE ' + QUESTIONS.length + ' PREGUNTAS RESPONDIDAS';
 }
+
 function showToast(msg, ms=3500) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), ms);
 }
+
 async function submitResponses() {
-  if (!CFG.binId || !CFG.apiKey) { showToast('⚠️ Credenciales no configuradas'); return; }
+  if (CFG.binId === 'JSONBIN_BIN_ID_PLACEHOLDER') {
+    showToast('⚠️ Credenciales no configuradas — contacta al facilitador');
+    return;
+  }
   if (!document.getElementById('p-area').value) { showToast('⚠️ Selecciona tu área antes de enviar'); return; }
   const answered = Object.keys(scores).length;
   if (answered < QUESTIONS.length) { showToast('⚠️ Responde las ' + QUESTIONS.length + ' preguntas (' + answered + ' respondidas)'); return; }
+
   const btn = document.getElementById('submit-btn');
   btn.disabled = true; btn.innerHTML = '<span>⏳</span> Enviando...';
+
   const entry = {
     id: 'P' + Date.now() + Math.random().toString(36).substr(2,4).toUpperCase(),
     timestamp: new Date().toISOString(),
@@ -156,8 +186,10 @@ async function submitResponses() {
     years: document.getElementById('p-years').value || 'ND',
     scores: { ...scores }, gaps: { ...gaps }
   };
+
   const url = 'https://api.jsonbin.io/v3/b/' + CFG.binId;
   const headers = { 'Content-Type': 'application/json', 'X-Master-Key': CFG.apiKey };
+
   try {
     const getRes = await fetch(url + '/latest', { headers: { 'X-Master-Key': CFG.apiKey } });
     if (!getRes.ok) throw new Error('Error leyendo datos: HTTP ' + getRes.status);
@@ -170,8 +202,10 @@ async function submitResponses() {
     document.getElementById('success-screen').style.display = 'block';
     document.getElementById('success-id').textContent = 'ID: ' + entry.id;
   } catch(err) {
-    btn.disabled = false; btn.innerHTML = '<span>📤</span> Enviar Respuestas al Facilitador';
-    showToast('❌ ' + err.message); console.error(err);
+    btn.disabled = false;
+    btn.innerHTML = '<span>📤</span> Enviar Respuestas al Facilitador';
+    showToast('❌ ' + err.message);
+    console.error(err);
   }
 }
 </script>
