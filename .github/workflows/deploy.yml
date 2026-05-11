@@ -21,11 +21,13 @@ jobs:
         env:
           BIN_ID: ${{ secrets.JSONBIN_BIN_ID }}
           API_KEY: ${{ secrets.JSONBIN_API_KEY }}
+          ADMIN_PWD: ${{ secrets.ADMIN_PASSWORD }}
         run: |
           sed -i "s|JSONBIN_BIN_ID_PLACEHOLDER|${BIN_ID}|g" participante.html
           sed -i "s|JSONBIN_API_KEY_PLACEHOLDER|${API_KEY}|g" participante.html
           sed -i "s|JSONBIN_BIN_ID_PLACEHOLDER|${BIN_ID}|g" admin.html
           sed -i "s|JSONBIN_API_KEY_PLACEHOLDER|${API_KEY}|g" admin.html
+          sed -i "s|ADMIN_PASSWORD_PLACEHOLDER|${ADMIN_PWD}|g" admin.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
