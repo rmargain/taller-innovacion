@@ -176,21 +176,27 @@ let allParticipants=[];
 let activeWcBlock='all';
 
 async function initBin(){
-  if(!confirm('Esto inicializará (o reseteará) el bin con un array vacío de participantes. ¿Continuar?')) return;
+  var pwd = prompt('Ingresa el password de administrador:');
+  if (pwd === null) return;
+  if (pwd !== 'ADMIN_PASSWORD_PLACEHOLDER') {
+    showToast('❌ Password incorrecto');
+    return;
+  }
+  if (!confirm('Esto borrará TODAS las respuestas. ¿Confirmas?')) return;
   try{
-    const r=await fetch('https://api.jsonbin.io/v3/b/'+CFG.binId,{
-      method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':CFG.apiKey},
-      body:JSON.stringify({participants:[]})
+    const r = await fetch('https://api.jsonbin.io/v3/b/' + CFG.binId, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json','X-Master-Key': CFG.apiKey},
+      body: JSON.stringify({participants:[]})
     });
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    showToast('✓ Bin inicializado correctamente');
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    showToast('✓ Bin reseteado correctamente');
     loadData();
-  }catch(e){
-    showToast('❌ Error: '+e.message);
-    console.error(e);
+  } catch(e) {
+    showToast('❌ Error: ' + e.message);
   }
 }
+
   
 async function loadData(){
   const btn=document.getElementById('refresh-btn');
