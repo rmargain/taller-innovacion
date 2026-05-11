@@ -87,6 +87,7 @@
     <div class="tag">Taller de Innovación · Vista Facilitador</div>
   </div>
   <div class="topbar-actions">
+    <a href="index.html" style="text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);border-radius:6px;transition:all .2s;" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--gold)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">← Inicio</a>
     <div style="display:flex;align-items:center;gap:6px"><div class="live-dot"></div><span class="live-label">EN VIVO</span></div>
     <button class="btn-refresh" id="refresh-btn" onclick="loadData()"><span>↺</span> Actualizar</button>
   </div>
@@ -97,8 +98,8 @@
   <div class="stats-row">
     <div class="stat-card"><div class="stat-label">Participantes</div><div class="stat-val" id="stat-total">—</div><div class="stat-sub">respuestas recibidas</div></div>
     <div class="stat-card green"><div class="stat-label">Score Global</div><div class="stat-val green" id="stat-global">—</div><div class="stat-sub">promedio /5.0</div></div>
-    <div class="stat-card red"><div class="stat-label">Pregunta más baja</div><div class="stat-val" id="stat-lowest-val" style="font-size:26px;color:var(--accent-red)">—</div><div class="stat-sub" id="stat-lowest-q">—</div></div>
-    <div class="stat-card green"><div class="stat-label">Pregunta más alta</div><div class="stat-val green" id="stat-highest-val" style="font-size:26px">—</div><div class="stat-sub" id="stat-highest-q">—</div></div>
+    <div class="stat-card red"><div class="stat-label">Pregunta más baja</div><div class="stat-val" id="stat-lowest-val" style="font-size:26px;color:var(--accent-red)">—</div><div class="stat-sub" id="stat-lowest-q" style="font-size:11px">—</div></div>
+    <div class="stat-card green"><div class="stat-label">Pregunta más alta</div><div class="stat-val green" id="stat-highest-val" style="font-size:26px">—</div><div class="stat-sub" id="stat-highest-q" style="font-size:11px">—</div></div>
     <div class="stat-card blue"><div class="stat-label">Áreas representadas</div><div class="stat-val blue" id="stat-areas">—</div><div class="stat-sub" id="stat-areas-list">—</div></div>
   </div>
 
@@ -122,7 +123,7 @@
     <div class="sec-title">Score promedio de cada dimensión</div>
     <div class="panel">
       <table class="q-table">
-        <thead><tr><th>ID</th><th>Dimensión</th><th>Score</th><th>Distribución (1→5)</th></tr></thead>
+        <thead><tr><th>ID</th><th>Dimensión</th><th>Score</th><th>Distribución de respuestas (1→5)</th></tr></thead>
         <tbody id="q-table-body"><tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text-muted)">Esperando datos...</td></tr></tbody>
       </table>
     </div>
@@ -167,8 +168,9 @@
 const QLABELS={a1:'Rol de la innovación en la estrategia',a2:'Tipos de innovación y portafolio',a3:'KPIs diferenciados por tipo',b1:'Generación de ideas e insights',b2:'Criterios de aprobación por gate',b3:'Equipos multifuncionales integrados',b4:'Validación con consumidor',b5:'Time-to-market y agilidad',c1:'Plan de go-to-market pre-lanzamiento',c2:'Capacitación de fuerza de ventas',c3:'Soporte de marketing post-lanzamiento',c4:'Ejecución en punto de venta',d1:'Dashboard de tracking post-lanzamiento',d2:'KPIs pre-definidos y acordados',d3:'Proceso de aprendizaje y post-mortem',d4:'Protocolo aceleración/descontinuación'};
 const QIDS=Object.keys(QLABELS);
 const BLOCKS={a:{label:'A · Estrategia',qs:['a1','a2','a3'],color:'#C9A84C'},b:{label:'B · Proceso',qs:['b1','b2','b3','b4','b5'],color:'#C84B5A'},c:{label:'C · Lanzamiento',qs:['c1','c2','c3','c4'],color:'#3A8C68'},d:{label:'D · Medición',qs:['d1','d2','d3','d4'],color:'#3A6FA8'}};
-const STOPWORDS=new Set(['de','la','el','en','y','a','que','no','se','es','los','las','un','una','con','para','por','del','al','lo','como','más','pero','hay','tiene','su','sus','este','esta','nuestro','nuestra','muy','bien','sin','si','o','ni','esto','ya','puede','cuando','cada','les','son','está','fue','ser','han','todo','todos','toda','también','nos','me','tu','te','the','and','is','to','of','in','are','that','this','with','for','on','at','or','an','we','it','from','has','have','not','be','do','by','as','our','they','was','were','been','poco','solo','aún','falta']);
-const CFG={binId:'',apiKey:''};
+const STOPWORDS=new Set(['de','la','el','en','y','a','que','no','se','es','los','las','un','una','con','para','por','del','al','lo','como','más','pero','hay','tiene','su','sus','este','esta','nuestro','nuestra','muy','bien','sin','si','o','ni','esto','ya','puede','cuando','cada','les','son','está','fue','ser','han','todo','todos','toda','también','nos','me','tu','te','the','and','is','to','of','in','are','that','this','with','for','on','at','or','an','we','it','its','from','has','have','not','be','do','by','as','our','their','they','was','were','been','poco','solo','aún','falta']);
+
+const CFG={binId:'JSONBIN_BIN_ID_PLACEHOLDER',apiKey:'JSONBIN_API_KEY_PLACEHOLDER'};
 let allParticipants=[];
 let activeWcBlock='all';
 
@@ -213,6 +215,7 @@ function renderDashboard(ps){
   const areaCount={};
   ps.forEach(p=>{areaCount[p.area]=(areaCount[p.area]||0)+1;});
   const areaList=Object.keys(areaCount);
+
   document.getElementById('stat-total').textContent=ps.length;
   document.getElementById('stat-global').textContent=globalAvg?globalAvg.toFixed(1):'—';
   document.getElementById('stat-lowest-val').textContent=lowestQ?qAvgs[lowestQ].toFixed(1):'—';
@@ -221,15 +224,18 @@ function renderDashboard(ps){
   document.getElementById('stat-highest-q').textContent=highestQ?highestQ.toUpperCase()+' · '+QLABELS[highestQ].substring(0,30)+'…':'—';
   document.getElementById('stat-areas').textContent=areaList.length;
   document.getElementById('stat-areas-list').textContent=areaList.slice(0,3).join(', ')+(areaList.length>3?' +'+(areaList.length-3):'');
+
   document.getElementById('block-score-list').innerHTML=Object.entries(BLOCKS).map(([k,block])=>{
     const v=blockAvgs[k];const pct=v?v/5*100:0;
     const color=v>=4?'#3A8C68':v>=3?'#C9A84C':'#C84B5A';
     return `<div class="block-score-item"><div class="bsi-header"><span class="bsi-name">${block.label}</span><span class="bsi-val" style="color:${color}">${v?v.toFixed(1):'—'}</span></div><div class="bsi-bar-wrap"><div class="bsi-bar" style="width:${pct}%;background:${color}"></div></div></div>`;
   }).join('');
+
   document.getElementById('area-dist').innerHTML=Object.entries(areaCount).map(([area,count])=>{
     const pct=Math.round(count/ps.length*100);
     return `<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;color:rgba(250,246,237,.7)">${area}<span style="color:var(--gold)">${count} (${pct}%)</span></div><div style="background:rgba(255,255,255,.06);border-radius:3px;height:4px;overflow:hidden"><div style="width:${pct}%;height:100%;background:var(--gold);border-radius:3px"></div></div></div>`;
   }).join('');
+
   drawRadar(blockAvgs);
   renderQTable(qAvgs,ps);
   renderPTable(ps,blockAvgs);
@@ -309,7 +315,7 @@ function renderWordCloud(ps,blockFilter){
   if(!entries.length){ctx.fillStyle='rgba(250,246,237,.2)';ctx.font='14px DM Sans,sans-serif';ctx.textAlign='center';ctx.fillText('Sin texto de gaps aún',W/2,H/2);ctx.textAlign='left';return;}
   const maxF=entries[0][1];
   const palette=['#C9A84C','#E8C97A','#F5EDD0','#C84B5A','#3A8C68','#3A6FA8','#E09B30','#F5A623','#7EC8A4','#8FBBDF'];
-  const placed=[];const cx=W/2,cy=H/2;
+  const placed=[],cx=W/2,cy=H/2;
   function overlaps(nx,ny,nw,nh){return placed.some(([px,py,pw,ph])=>nx<px+pw&&nx+nw>px&&ny<py+ph&&ny+nh>py);}
   entries.forEach(([word,count],i)=>{
     const size=Math.max(11,Math.min(40,12+(count/maxF)*28));
@@ -332,7 +338,7 @@ function renderWordCloud(ps,blockFilter){
 function renderGapList(ps,blockFilter){
   const items=[];
   ps.forEach(p=>{Object.entries(p.gaps||{}).forEach(([qid,text])=>{if(!text||!text.trim()) return;if(blockFilter!=='all'&&qid[0]!==blockFilter) return;items.push({qid,text,area:p.area});});});
-  document.getElementById('gap-list').innerHTML=items.length?items.map(it=>`<div class="gap-item"><div class="gap-item-header"><span class="gap-item-qid">${it.qid.toUpperCase()} · ${(QLABELS[it.qid]||'').substring(0,36)}…</span><span class="gap-item-area">${it.area}</span></div><div class="gap-item-text">${it.text}</div></div>`).join(''):'<div style="color:var(--text-muted);font-size:13px;padding:40px 0;text-align:center">Sin comentarios aún</div>';
+  document.getElementById('gap-list').innerHTML=items.length?items.map(it=>`<div class="gap-item"><div class="gap-item-header"><span class="gap-item-qid">${it.qid.toUpperCase()} · ${(QLABELS[it.qid]||'').substring(0,36)}…</span><span class="gap-item-area">${it.area}</span></div><div class="gap-item-text">${it.text}</div></div>`).join(''):'<div style="color:var(--text-muted);font-size:13px;padding:40px 0;text-align:center">Sin comentarios de gap aún</div>';
 }
 
 document.querySelectorAll('.wc-filter').forEach(btn=>{
