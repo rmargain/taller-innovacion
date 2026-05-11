@@ -175,6 +175,23 @@ const CFG={binId:'JSONBIN_BIN_ID_PLACEHOLDER',apiKey:'JSONBIN_API_KEY_PLACEHOLDE
 let allParticipants=[];
 let activeWcBlock='all';
 
+async function initBin(){
+  if(!confirm('Esto inicializará (o reseteará) el bin con un array vacío de participantes. ¿Continuar?')) return;
+  try{
+    const r=await fetch('https://api.jsonbin.io/v3/b/'+CFG.binId,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':CFG.apiKey},
+      body:JSON.stringify({participants:[]})
+    });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    showToast('✓ Bin inicializado correctamente');
+    loadData();
+  }catch(e){
+    showToast('❌ Error: '+e.message);
+    console.error(e);
+  }
+}
+  
 async function loadData(){
   const btn=document.getElementById('refresh-btn');
   btn.classList.add('spinning');
