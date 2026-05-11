@@ -165,10 +165,6 @@ function showToast(msg) {
 }
 
 function submitResponses() {
-  if (BIN_ID === JSONBIN_BIN_ID_PLACEHOLDER) {
-    showToast('Credenciales no configuradas');
-    return;
-  }
   if (!document.getElementById('p-area').value) {
     showToast('Selecciona tu área antes de enviar');
     return;
