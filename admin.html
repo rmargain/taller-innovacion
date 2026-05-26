@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Facilitador · Innovación</title>
+<title data-i18n="page-title">Dashboard Facilitador · Innovación</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-pale:#F5EDD0;--dark:#0F0D09;--dark-card:#1A1208;--cream:#FAF6ED;--text:#FAF6ED;--text-muted:rgba(250,246,237,.5);--accent-red:#C84B5A;--accent-green:#3A8C68;--accent-blue:#3A6FA8;--border:rgba(201,168,76,.2);--card-bg:rgba(255,255,255,.04);--card-border:rgba(201,168,76,.15)}
@@ -21,6 +21,8 @@
   .btn-refresh:hover{background:rgba(201,168,76,.25)}
   .btn-refresh.spinning span{display:inline-block;animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
+  .lang-toggle{background:transparent;border:1px solid var(--border);color:var(--text-muted);padding:6px 12px;border-radius:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;transition:all .2s}
+  .lang-toggle:hover{border-color:var(--gold);color:var(--gold)}
   .main{padding:28px 40px;max-width:1400px;margin:0 auto}
   .last-updated{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--text-muted);text-align:right;margin-bottom:20px}
   .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:28px}
@@ -83,81 +85,82 @@
 
 <div class="topbar">
   <div class="topbar-brand">
-    <div class="logo">Admin <span>·</span> Dashboard</div>
-    <div class="tag">Taller de Innovación · Vista Facilitador</div>
+    <div class="logo"><span data-i18n="topbar-admin">Admin</span> <span>·</span> Dashboard</div>
+    <div class="tag" data-i18n="topbar-tag">Taller de Innovación · Vista Facilitador</div>
   </div>
   <div class="topbar-actions">
-    <a href="index.html" style="text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);border-radius:6px;transition:all .2s;" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--gold)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">← Inicio</a>
-    <button class="btn-refresh" style="border-color:#C84B5A;color:#C84B5A;background:rgba(200,75,90,.1);" onclick="initBin()">⚙ Reset Datos</button>
-    <div style="display:flex;align-items:center;gap:6px"><div class="live-dot"></div><span class="live-label">EN VIVO</span></div>
-    <button class="btn-refresh" id="refresh-btn" onclick="loadData()"><span>↺</span> Actualizar</button>
+    <a href="index.html" style="text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);border-radius:6px;transition:all .2s;" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--gold)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'" data-i18n="back-home">← Inicio</a>
+    <button class="btn-refresh" style="border-color:#C84B5A;color:#C84B5A;background:rgba(200,75,90,.1);" onclick="initBin()" data-i18n="btn-reset">⚙ Reset Datos</button>
+    <div style="display:flex;align-items:center;gap:6px"><div class="live-dot"></div><span class="live-label" data-i18n="live-label">EN VIVO</span></div>
+    <button class="btn-refresh" id="refresh-btn" onclick="loadData()"><span>↺</span> <span data-i18n="btn-refresh">Actualizar</span></button>
+    <button id="lang-toggle" class="lang-toggle" onclick="toggleLang()">EN</button>
   </div>
 </div>
 
 <div class="main">
-  <div class="last-updated" id="last-updated">Cargando...</div>
+  <div class="last-updated" id="last-updated" data-i18n="loading">Cargando...</div>
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-label">Participantes</div><div class="stat-val" id="stat-total">—</div><div class="stat-sub">respuestas recibidas</div></div>
-    <div class="stat-card green"><div class="stat-label">Score Global</div><div class="stat-val green" id="stat-global">—</div><div class="stat-sub">promedio /5.0</div></div>
-    <div class="stat-card red"><div class="stat-label">Pregunta más baja</div><div class="stat-val" id="stat-lowest-val" style="font-size:26px;color:var(--accent-red)">—</div><div class="stat-sub" id="stat-lowest-q" style="font-size:11px">—</div></div>
-    <div class="stat-card green"><div class="stat-label">Pregunta más alta</div><div class="stat-val green" id="stat-highest-val" style="font-size:26px">—</div><div class="stat-sub" id="stat-highest-q" style="font-size:11px">—</div></div>
-    <div class="stat-card blue"><div class="stat-label">Áreas representadas</div><div class="stat-val blue" id="stat-areas">—</div><div class="stat-sub" id="stat-areas-list">—</div></div>
+    <div class="stat-card"><div class="stat-label" data-i18n="stat-total-label">Participantes</div><div class="stat-val" id="stat-total">—</div><div class="stat-sub" data-i18n="stat-total-sub">respuestas recibidas</div></div>
+    <div class="stat-card green"><div class="stat-label" data-i18n="stat-global-label">Score Global</div><div class="stat-val green" id="stat-global">—</div><div class="stat-sub" data-i18n="stat-global-sub">promedio /5.0</div></div>
+    <div class="stat-card red"><div class="stat-label" data-i18n="stat-lowest-label">Pregunta más baja</div><div class="stat-val" id="stat-lowest-val" style="font-size:26px;color:var(--accent-red)">—</div><div class="stat-sub" id="stat-lowest-q" style="font-size:11px">—</div></div>
+    <div class="stat-card green"><div class="stat-label" data-i18n="stat-highest-label">Pregunta más alta</div><div class="stat-val green" id="stat-highest-val" style="font-size:26px">—</div><div class="stat-sub" id="stat-highest-q" style="font-size:11px">—</div></div>
+    <div class="stat-card blue"><div class="stat-label" data-i18n="stat-areas-label">Áreas representadas</div><div class="stat-val blue" id="stat-areas">—</div><div class="stat-sub" id="stat-areas-list">—</div></div>
   </div>
 
   <div class="two-col">
     <div class="panel">
-      <div class="panel-title">Radar de Madurez por Bloque</div>
+      <div class="panel-title" data-i18n="panel-radar">Radar de Madurez por Bloque</div>
       <canvas id="radar-canvas" width="380" height="320"></canvas>
     </div>
     <div class="panel">
-      <div class="panel-title">Score Promedio por Bloque</div>
-      <div id="block-score-list"><div style="color:var(--text-muted);padding:40px 0;text-align:center;font-size:13px">Esperando respuestas...</div></div>
+      <div class="panel-title" data-i18n="panel-block-score">Score Promedio por Bloque</div>
+      <div id="block-score-list"><div style="color:var(--text-muted);padding:40px 0;text-align:center;font-size:13px" data-i18n="waiting-responses">Esperando respuestas...</div></div>
       <div style="margin-top:24px;border-top:1px solid var(--border);padding-top:20px">
-        <div class="panel-title" style="margin-bottom:14px">Distribución por Área</div>
+        <div class="panel-title" style="margin-bottom:14px" data-i18n="panel-area-dist">Distribución por Área</div>
         <div id="area-dist"></div>
       </div>
     </div>
   </div>
 
   <div class="section-block">
-    <div class="sec-tag">Detalle por Pregunta</div>
-    <div class="sec-title">Score promedio de cada dimensión</div>
+    <div class="sec-tag" data-i18n="sec-question-tag">Detalle por Pregunta</div>
+    <div class="sec-title" data-i18n="sec-question-title">Score promedio de cada dimensión</div>
     <div class="panel">
       <table class="q-table">
-        <thead><tr><th>ID</th><th>Dimensión</th><th>Score</th><th>Distribución de respuestas (1→5)</th></tr></thead>
-        <tbody id="q-table-body"><tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text-muted)">Esperando datos...</td></tr></tbody>
+        <thead><tr><th data-i18n="th-id">ID</th><th data-i18n="th-dimension">Dimensión</th><th data-i18n="th-score">Score</th><th data-i18n="th-distribution">Distribución de respuestas (1→5)</th></tr></thead>
+        <tbody id="q-table-body"><tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text-muted)" data-i18n="waiting-data">Esperando datos...</td></tr></tbody>
       </table>
     </div>
   </div>
 
   <div class="section-block">
-    <div class="sec-tag">Análisis de Gaps</div>
-    <div class="sec-title">Word Cloud · Temas frecuentes en los gaps identificados</div>
+    <div class="sec-tag" data-i18n="sec-gaps-tag">Análisis de Gaps</div>
+    <div class="sec-title" data-i18n="sec-gaps-title">Word Cloud · Temas frecuentes en los gaps identificados</div>
     <div class="two-col">
       <div class="panel">
         <div class="wc-filters" id="wc-filters">
-          <button class="wc-filter active" data-block="all">Todos</button>
-          <button class="wc-filter" data-block="a">A · Estrategia</button>
-          <button class="wc-filter" data-block="b">B · Proceso</button>
-          <button class="wc-filter" data-block="c">C · Lanzamiento</button>
-          <button class="wc-filter" data-block="d">D · Medición</button>
+          <button class="wc-filter active" data-block="all" data-i18n="wc-all">Todos</button>
+          <button class="wc-filter" data-block="a" data-i18n="block-a-label">A · Estrategia</button>
+          <button class="wc-filter" data-block="b" data-i18n="block-b-label">B · Proceso</button>
+          <button class="wc-filter" data-block="c" data-i18n="block-c-label">C · Lanzamiento</button>
+          <button class="wc-filter" data-block="d" data-i18n="block-d-label">D · Medición</button>
         </div>
         <canvas id="wc-canvas" style="width:100%;height:320px"></canvas>
       </div>
       <div class="panel">
-        <div class="panel-title">Comentarios de Gap</div>
-        <div class="gap-list" id="gap-list"><div style="color:var(--text-muted);font-size:13px;padding:40px 0;text-align:center">Sin datos aún</div></div>
+        <div class="panel-title" data-i18n="panel-gap-comments">Comentarios de Gap</div>
+        <div class="gap-list" id="gap-list"><div style="color:var(--text-muted);font-size:13px;padding:40px 0;text-align:center" data-i18n="no-data-yet">Sin datos aún</div></div>
       </div>
     </div>
   </div>
 
   <div class="section-block">
-    <div class="sec-tag">Participantes</div>
-    <div class="sec-title">Respuestas individuales</div>
+    <div class="sec-tag" data-i18n="sec-participants-tag">Participantes</div>
+    <div class="sec-title" data-i18n="sec-participants-title">Respuestas individuales</div>
     <div class="panel">
       <table class="p-table">
-        <thead><tr><th>#</th><th>Nombre</th><th>Área</th><th>Antigüedad</th><th>Global</th><th>A</th><th>B</th><th>C</th><th>D</th><th>Hora</th></tr></thead>
-        <tbody id="p-table-body"><tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text-muted)">Esperando participantes...</td></tr></tbody>
+        <thead><tr><th>#</th><th data-i18n="th-name">Nombre</th><th data-i18n="th-area">Área</th><th data-i18n="th-years">Antigüedad</th><th data-i18n="th-global">Global</th><th>A</th><th>B</th><th>C</th><th>D</th><th data-i18n="th-time">Hora</th></tr></thead>
+        <tbody id="p-table-body"><tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text-muted)" data-i18n="waiting-participants">Esperando participantes...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -166,10 +169,141 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const QLABELS={a1:'Rol de la innovación en la estrategia',a2:'Tipos de innovación y portafolio',a3:'KPIs diferenciados por tipo',b1:'Generación de ideas e insights',b2:'Criterios de aprobación por gate',b3:'Equipos multifuncionales integrados',b4:'Validación con consumidor',b5:'Time-to-market y agilidad',c1:'Plan de go-to-market pre-lanzamiento',c2:'Capacitación de fuerza de ventas',c3:'Soporte de marketing post-lanzamiento',c4:'Ejecución en punto de venta',d1:'Dashboard de tracking post-lanzamiento',d2:'KPIs pre-definidos y acordados',d3:'Proceso de aprendizaje y post-mortem',d4:'Protocolo aceleración/descontinuación'};
-const QIDS=Object.keys(QLABELS);
-const BLOCKS={a:{label:'A · Estrategia',qs:['a1','a2','a3'],color:'#C9A84C'},b:{label:'B · Proceso',qs:['b1','b2','b3','b4','b5'],color:'#C84B5A'},c:{label:'C · Lanzamiento',qs:['c1','c2','c3','c4'],color:'#3A8C68'},d:{label:'D · Medición',qs:['d1','d2','d3','d4'],color:'#3A6FA8'}};
+const QLABELS_ES = {a1:'Rol de la innovación en la estrategia',a2:'Tipos de innovación y portafolio',a3:'KPIs diferenciados por tipo',b1:'Generación de ideas e insights',b2:'Criterios de aprobación por gate',b3:'Equipos multifuncionales integrados',b4:'Validación con consumidor',b5:'Time-to-market y agilidad',c1:'Plan de go-to-market pre-lanzamiento',c2:'Capacitación de fuerza de ventas',c3:'Soporte de marketing post-lanzamiento',c4:'Ejecución en punto de venta',d1:'Dashboard de tracking post-lanzamiento',d2:'KPIs pre-definidos y acordados',d3:'Proceso de aprendizaje y post-mortem',d4:'Protocolo aceleración/descontinuación'};
+const QLABELS_EN = {a1:'Role of innovation in strategy',a2:'Types of innovation and portfolio',a3:'Differentiated KPIs by type',b1:'Idea generation and insights',b2:'Gate approval criteria',b3:'Cross-functional teams integrated',b4:'Consumer validation',b5:'Time-to-market and agility',c1:'Pre-launch go-to-market plan',c2:'Sales-force training',c3:'Post-launch marketing support',c4:'Point-of-sale execution',d1:'Post-launch tracking dashboard',d2:'Pre-defined and agreed KPIs',d3:'Learning and post-mortem process',d4:'Acceleration/discontinuation protocol'};
+const QIDS=Object.keys(QLABELS_ES);
+const BLOCKS_ES={a:'A · Estrategia',b:'B · Proceso',c:'C · Lanzamiento',d:'D · Medición'};
+const BLOCKS_EN={a:'A · Strategy',b:'B · Process',c:'C · Launch',d:'D · Measurement'};
+const BLOCKS={a:{qs:['a1','a2','a3'],color:'#C9A84C'},b:{qs:['b1','b2','b3','b4','b5'],color:'#C84B5A'},c:{qs:['c1','c2','c3','c4'],color:'#3A8C68'},d:{qs:['d1','d2','d3','d4'],color:'#3A6FA8'}};
 const STOPWORDS=new Set(['de','la','el','en','y','a','que','no','se','es','los','las','un','una','con','para','por','del','al','lo','como','más','pero','hay','tiene','su','sus','este','esta','nuestro','nuestra','muy','bien','sin','si','o','ni','esto','ya','puede','cuando','cada','les','son','está','fue','ser','han','todo','todos','toda','también','nos','me','tu','te','the','and','is','to','of','in','are','that','this','with','for','on','at','or','an','we','it','its','from','has','have','not','be','do','by','as','our','their','they','was','were','been','poco','solo','aún','falta']);
+
+const TRANSLATIONS = {
+  en: {
+    'page-title': 'Facilitator Dashboard · Innovation',
+    'topbar-admin': 'Admin',
+    'topbar-tag': 'Innovation Workshop · Facilitator View',
+    'back-home': '← Home',
+    'btn-reset': '⚙ Reset Data',
+    'live-label': 'LIVE',
+    'btn-refresh': 'Refresh',
+    'loading': 'Loading...',
+    'stat-total-label': 'Participants',
+    'stat-total-sub': 'responses received',
+    'stat-global-label': 'Global Score',
+    'stat-global-sub': 'average /5.0',
+    'stat-lowest-label': 'Lowest question',
+    'stat-highest-label': 'Highest question',
+    'stat-areas-label': 'Areas represented',
+    'panel-radar': 'Maturity Radar by Block',
+    'panel-block-score': 'Average Score by Block',
+    'panel-area-dist': 'Distribution by Area',
+    'waiting-responses': 'Waiting for responses...',
+    'sec-question-tag': 'Per-Question Detail',
+    'sec-question-title': 'Average score for each dimension',
+    'th-id': 'ID',
+    'th-dimension': 'Dimension',
+    'th-score': 'Score',
+    'th-distribution': 'Response distribution (1→5)',
+    'waiting-data': 'Waiting for data...',
+    'sec-gaps-tag': 'Gap Analysis',
+    'sec-gaps-title': 'Word Cloud · Frequent topics in identified gaps',
+    'wc-all': 'All',
+    'block-a-label': 'A · Strategy',
+    'block-b-label': 'B · Process',
+    'block-c-label': 'C · Launch',
+    'block-d-label': 'D · Measurement',
+    'panel-gap-comments': 'Gap Comments',
+    'no-data-yet': 'No data yet',
+    'sec-participants-tag': 'Participants',
+    'sec-participants-title': 'Individual responses',
+    'th-name': 'Name',
+    'th-area': 'Area',
+    'th-years': 'Tenure',
+    'th-global': 'Global',
+    'th-time': 'Time',
+    'waiting-participants': 'Waiting for participants...',
+    // JS-baked dynamic strings
+    'prompt-password': 'Enter admin password:',
+    'confirm-reset': 'This will delete ALL responses. Confirm?',
+    'toast-reset-ok': '✓ Data reset successfully',
+    'last-updated-prefix': 'Last update: ',
+    'toast-loaded-fmt': '✓ {n} response(s) loaded',
+    'toast-no-responses': 'ℹ No responses yet',
+    'error-prefix': '❌ Error: ',
+    'no-gap-text': 'No gap text yet',
+    'no-gap-comments': 'No gap comments yet'
+  }
+};
+
+const TRANSLATIONS_ES_DYNAMIC = {
+  'prompt-password': 'Ingresa el password de administrador:',
+  'confirm-reset': 'Esto borrará TODAS las respuestas. ¿Confirmas?',
+  'toast-reset-ok': '✓ Datos reseteados correctamente',
+  'last-updated-prefix': 'Última actualización: ',
+  'toast-loaded-fmt': '✓ {n} respuesta(s) cargada(s)',
+  'toast-no-responses': 'ℹ Sin respuestas aún',
+  'error-prefix': '❌ Error: ',
+  'no-gap-text': 'Sin texto de gaps aún',
+  'no-gap-comments': 'Sin comentarios de gap aún'
+};
+
+const originals = {};
+
+function currentLang() {
+  try { return localStorage.getItem('lang') || 'es'; } catch(e) { return 'es'; }
+}
+
+function tr(key, params) {
+  const lang = currentLang();
+  let s;
+  if (lang === 'en' && TRANSLATIONS.en[key] !== undefined) s = TRANSLATIONS.en[key];
+  else if (TRANSLATIONS_ES_DYNAMIC[key] !== undefined) s = TRANSLATIONS_ES_DYNAMIC[key];
+  else if (originals[key] !== undefined) s = originals[key];
+  else s = key;
+  if (params) Object.keys(params).forEach(p => { s = s.replace('{' + p + '}', params[p]); });
+  return s;
+}
+
+function getQLabel(qid) {
+  return currentLang() === 'en' ? QLABELS_EN[qid] : QLABELS_ES[qid];
+}
+
+function getBlockLabel(k) {
+  return currentLang() === 'en' ? BLOCKS_EN[k] : BLOCKS_ES[k];
+}
+
+function getLocale() {
+  return currentLang() === 'en' ? 'en-US' : 'es-MX';
+}
+
+function captureOriginals() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    if (originals[el.dataset.i18n] === undefined) originals[el.dataset.i18n] = el.textContent;
+  });
+}
+
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (lang === 'en' && TRANSLATIONS.en[k] !== undefined) el.textContent = TRANSLATIONS.en[k];
+    else el.textContent = originals[k];
+  });
+  const titleEl = document.querySelector('title[data-i18n]');
+  if (titleEl) {
+    const k = titleEl.dataset.i18n;
+    document.title = (lang === 'en' && TRANSLATIONS.en[k]) ? TRANSLATIONS.en[k] : originals[k];
+  }
+  try { localStorage.setItem('lang', lang); } catch(e) {}
+  const btn = document.getElementById('lang-toggle');
+  if (btn) btn.textContent = lang === 'es' ? 'EN' : 'ES';
+  // Re-render dynamic dashboard content (QLABELS/BLOCKS-driven)
+  if (Array.isArray(allParticipants)) renderDashboard(allParticipants);
+}
+
+function toggleLang() {
+  setLang(currentLang() === 'es' ? 'en' : 'es');
+}
 
 const CFG={url:'https://afxbpdhintdwxmrtkaeu.supabase.co',anonKey:'sb_publishable_ghXRI4MBaUZ0pKd0tutVBw_dmnkffAP'};
 const SB_HEADERS={'apikey':CFG.anonKey,'Authorization':'Bearer '+CFG.anonKey};
@@ -177,9 +311,9 @@ let allParticipants=[];
 let activeWcBlock='all';
 
 async function initBin(){
-  var pwd = prompt('Ingresa el password de administrador:');
+  const pwd = prompt(tr('prompt-password'));
   if (pwd === null) return;
-  if (!confirm('Esto borrará TODAS las respuestas. ¿Confirmas?')) return;
+  if (!confirm(tr('confirm-reset'))) return;
   try{
     const r = await fetch(CFG.url + '/rest/v1/rpc/reset_participants', {
       method: 'POST',
@@ -190,14 +324,13 @@ async function initBin(){
       const err = await r.json().catch(()=>({}));
       throw new Error(err.message || ('HTTP ' + r.status));
     }
-    showToast('✓ Datos reseteados correctamente');
+    showToast(tr('toast-reset-ok'));
     loadData();
   } catch(e) {
-    showToast('❌ Error: ' + e.message);
+    showToast(tr('error-prefix') + e.message);
   }
 }
 
-  
 async function loadData(){
   const btn=document.getElementById('refresh-btn');
   btn.classList.add('spinning');
@@ -208,10 +341,10 @@ async function loadData(){
     const participants=Array.isArray(data)?data:[];
     allParticipants=participants;
     renderDashboard(participants);
-    document.getElementById('last-updated').textContent='Última actualización: '+new Date().toLocaleTimeString('es-MX');
-    showToast(participants.length>0?'✓ '+participants.length+' respuesta(s) cargada(s)':'ℹ Sin respuestas aún');
+    document.getElementById('last-updated').textContent=tr('last-updated-prefix')+new Date().toLocaleTimeString(getLocale());
+    showToast(participants.length>0?tr('toast-loaded-fmt',{n:participants.length}):tr('toast-no-responses'));
   }catch(e){
-    showToast('❌ Error: '+e.message);
+    showToast(tr('error-prefix')+e.message);
     console.error(e);
   }
   btn.classList.remove('spinning');
@@ -220,6 +353,15 @@ async function loadData(){
 function renderDashboard(ps){
   if(ps.length===0){
     ['stat-total','stat-global','stat-lowest-val','stat-highest-val','stat-areas'].forEach(id=>document.getElementById(id).textContent='—');
+    document.getElementById('stat-lowest-q').textContent='—';
+    document.getElementById('stat-highest-q').textContent='—';
+    document.getElementById('stat-areas-list').textContent='—';
+    document.getElementById('block-score-list').innerHTML=`<div style="color:var(--text-muted);padding:40px 0;text-align:center;font-size:13px">${tr('waiting-responses')}</div>`;
+    document.getElementById('area-dist').innerHTML='';
+    document.getElementById('q-table-body').innerHTML=`<tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text-muted)">${tr('waiting-data')}</td></tr>`;
+    document.getElementById('p-table-body').innerHTML=`<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text-muted)">${tr('waiting-participants')}</td></tr>`;
+    document.getElementById('gap-list').innerHTML=`<div style="color:var(--text-muted);font-size:13px;padding:40px 0;text-align:center">${tr('no-data-yet')}</div>`;
+    drawRadar({});
     return;
   }
   const qAvgs={};
@@ -243,16 +385,16 @@ function renderDashboard(ps){
   document.getElementById('stat-total').textContent=ps.length;
   document.getElementById('stat-global').textContent=globalAvg?globalAvg.toFixed(1):'—';
   document.getElementById('stat-lowest-val').textContent=lowestQ?qAvgs[lowestQ].toFixed(1):'—';
-  document.getElementById('stat-lowest-q').textContent=lowestQ?lowestQ.toUpperCase()+' · '+QLABELS[lowestQ].substring(0,30)+'…':'—';
+  document.getElementById('stat-lowest-q').textContent=lowestQ?lowestQ.toUpperCase()+' · '+getQLabel(lowestQ).substring(0,30)+'…':'—';
   document.getElementById('stat-highest-val').textContent=highestQ?qAvgs[highestQ].toFixed(1):'—';
-  document.getElementById('stat-highest-q').textContent=highestQ?highestQ.toUpperCase()+' · '+QLABELS[highestQ].substring(0,30)+'…':'—';
+  document.getElementById('stat-highest-q').textContent=highestQ?highestQ.toUpperCase()+' · '+getQLabel(highestQ).substring(0,30)+'…':'—';
   document.getElementById('stat-areas').textContent=areaList.length;
   document.getElementById('stat-areas-list').textContent=areaList.slice(0,3).join(', ')+(areaList.length>3?' +'+(areaList.length-3):'');
 
   document.getElementById('block-score-list').innerHTML=Object.entries(BLOCKS).map(([k,block])=>{
     const v=blockAvgs[k];const pct=v?v/5*100:0;
     const color=v>=4?'#3A8C68':v>=3?'#C9A84C':'#C84B5A';
-    return `<div class="block-score-item"><div class="bsi-header"><span class="bsi-name">${block.label}</span><span class="bsi-val" style="color:${color}">${v?v.toFixed(1):'—'}</span></div><div class="bsi-bar-wrap"><div class="bsi-bar" style="width:${pct}%;background:${color}"></div></div></div>`;
+    return `<div class="block-score-item"><div class="bsi-header"><span class="bsi-name">${getBlockLabel(k)}</span><span class="bsi-val" style="color:${color}">${v?v.toFixed(1):'—'}</span></div><div class="bsi-bar-wrap"><div class="bsi-bar" style="width:${pct}%;background:${color}"></div></div></div>`;
   }).join('');
 
   document.getElementById('area-dist').innerHTML=Object.entries(areaCount).map(([area,count])=>{
@@ -289,7 +431,7 @@ function drawRadar(blockAvgs){
     blocks.forEach(([k],i)=>{const v=blockAvgs[k]||0;const r=maxR*v/5;const a=startAngle+i*angleStep;const x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle='#C9A84C';ctx.fill();ctx.strokeStyle='#0F0D09';ctx.lineWidth=2;ctx.stroke();});
   }
   ctx.textAlign='center';ctx.textBaseline='middle';
-  blocks.forEach(([k,block],i)=>{const a=startAngle+i*angleStep;const lr=maxR+32;const x=cx+lr*Math.cos(a),y=cy+lr*Math.sin(a);ctx.fillStyle='rgba(250,246,237,.8)';ctx.font='11px DM Sans,sans-serif';ctx.fillText(block.label,x,y);if(blockAvgs[k]!=null){ctx.fillStyle=block.color;ctx.font='bold 12px DM Sans,sans-serif';ctx.fillText(blockAvgs[k].toFixed(1),x,y+15);}});
+  blocks.forEach(([k,block],i)=>{const a=startAngle+i*angleStep;const lr=maxR+32;const x=cx+lr*Math.cos(a),y=cy+lr*Math.sin(a);ctx.fillStyle='rgba(250,246,237,.8)';ctx.font='11px DM Sans,sans-serif';ctx.fillText(getBlockLabel(k),x,y);if(blockAvgs[k]!=null){ctx.fillStyle=block.color;ctx.font='bold 12px DM Sans,sans-serif';ctx.fillText(blockAvgs[k].toFixed(1),x,y+15);}});
   ctx.textAlign='left';ctx.textBaseline='alphabetic';
 }
 
@@ -300,18 +442,18 @@ function renderQTable(qAvgs,ps){
     const dist=[1,2,3,4,5].map(s=>ps.filter(p=>p.scores[q]===s).length);
     const maxD=Math.max(...dist,1);
     const bars=dist.map((cnt,i)=>{const w=Math.round(cnt/maxD*36);const c=i<2?'#C84B5A':i===2?'#C9A84C':'#3A8C68';return `<div style="display:inline-flex;align-items:center;gap:2px;margin-right:3px"><span style="font-size:9px;color:rgba(250,246,237,.35);width:8px">${i+1}</span><div style="width:${w}px;height:10px;background:${c};opacity:.75;border-radius:2px"></div><span style="font-size:9px;color:rgba(250,246,237,.4)">${cnt}</span></div>`;}).join('');
-    return `<tr><td>${q.toUpperCase()}</td><td style="font-size:13px;color:rgba(250,246,237,.85)">${QLABELS[q]}</td><td><div class="score-badge ${cls}">${vStr}</div></td><td>${bars}</td></tr>`;
+    return `<tr><td>${q.toUpperCase()}</td><td style="font-size:13px;color:rgba(250,246,237,.85)">${getQLabel(q)}</td><td><div class="score-badge ${cls}">${vStr}</div></td><td>${bars}</td></tr>`;
   }).join('');
 }
 
 function renderPTable(ps,blockAvgs){
-  if(ps.length===0){document.getElementById('p-table-body').innerHTML='<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text-muted)">Esperando participantes...</td></tr>';return;}
+  if(ps.length===0){document.getElementById('p-table-body').innerHTML=`<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text-muted)">${tr('waiting-participants')}</td></tr>`;return;}
   document.getElementById('p-table-body').innerHTML=ps.map((p,idx)=>{
     const bScores=Object.entries(BLOCKS).map(([k,block])=>{const vals=block.qs.map(q=>p.scores[q]).filter(v=>v!=null&&!isNaN(v));return vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1):'—';});
     const allV=QIDS.map(q=>p.scores[q]).filter(v=>v!=null&&!isNaN(v));
     const tot=allV.length?(allV.reduce((a,b)=>a+b,0)/allV.length).toFixed(1):'—';
     const color=parseFloat(tot)>=4?'#3A8C68':parseFloat(tot)>=3?'#C9A84C':'#C84B5A';
-    const ts=new Date(p.timestamp).toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
+    const ts=new Date(p.timestamp).toLocaleTimeString(getLocale(),{hour:'2-digit',minute:'2-digit'});
     return `<tr><td style="color:var(--text-muted)">${idx+1}</td><td style="font-weight:600">${p.name}</td><td><span class="area-chip">${p.area}</span></td><td style="font-size:12px;color:var(--text-muted)">${p.years}</td><td style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:${color}">${tot}</td>${bScores.map(s=>`<td style="font-size:12px;color:rgba(250,246,237,.6)">${s}</td>`).join('')}<td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted)">${ts}</td></tr>`;
   }).join('');
 }
@@ -336,7 +478,7 @@ function renderWordCloud(ps,blockFilter){
   ctx.clearRect(0,0,W,H);
   const freq=getWordFreq(ps,blockFilter);
   const entries=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,60);
-  if(!entries.length){ctx.fillStyle='rgba(250,246,237,.2)';ctx.font='14px DM Sans,sans-serif';ctx.textAlign='center';ctx.fillText('Sin texto de gaps aún',W/2,H/2);ctx.textAlign='left';return;}
+  if(!entries.length){ctx.fillStyle='rgba(250,246,237,.2)';ctx.font='14px DM Sans,sans-serif';ctx.textAlign='center';ctx.fillText(tr('no-gap-text'),W/2,H/2);ctx.textAlign='left';return;}
   const maxF=entries[0][1];
   const palette=['#C9A84C','#E8C97A','#F5EDD0','#C84B5A','#3A8C68','#3A6FA8','#E09B30','#F5A623','#7EC8A4','#8FBBDF'];
   const placed=[],cx=W/2,cy=H/2;
@@ -362,7 +504,7 @@ function renderWordCloud(ps,blockFilter){
 function renderGapList(ps,blockFilter){
   const items=[];
   ps.forEach(p=>{Object.entries(p.gaps||{}).forEach(([qid,text])=>{if(!text||!text.trim()) return;if(blockFilter!=='all'&&qid[0]!==blockFilter) return;items.push({qid,text,area:p.area});});});
-  document.getElementById('gap-list').innerHTML=items.length?items.map(it=>`<div class="gap-item"><div class="gap-item-header"><span class="gap-item-qid">${it.qid.toUpperCase()} · ${(QLABELS[it.qid]||'').substring(0,36)}…</span><span class="gap-item-area">${it.area}</span></div><div class="gap-item-text">${it.text}</div></div>`).join(''):'<div style="color:var(--text-muted);font-size:13px;padding:40px 0;text-align:center">Sin comentarios de gap aún</div>';
+  document.getElementById('gap-list').innerHTML=items.length?items.map(it=>`<div class="gap-item"><div class="gap-item-header"><span class="gap-item-qid">${it.qid.toUpperCase()} · ${(getQLabel(it.qid)||'').substring(0,36)}…</span><span class="gap-item-area">${it.area}</span></div><div class="gap-item-text">${it.text}</div></div>`).join(''):`<div style="color:var(--text-muted);font-size:13px;padding:40px 0;text-align:center">${tr('no-gap-comments')}</div>`;
 }
 
 document.querySelectorAll('.wc-filter').forEach(btn=>{
@@ -376,6 +518,10 @@ document.querySelectorAll('.wc-filter').forEach(btn=>{
 });
 
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+
+// Init i18n
+captureOriginals();
+setLang(currentLang());
 
 loadData();
 setInterval(loadData,30000);
