@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es" style="color-scheme: light only;">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light only">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión Integral de la Innovación · Bebidas Alcohólicas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light only;
+    --orange: #E85D2F;
+    --orange-light: #F28B6A;
+    --orange-pale: #FDF0EB;
+    --black: #111111;
+    --gray-dark: #333333;
+    --gray-mid: #666666;
+    --gray-light: #999999;
+    --gray-line: #E5E5E5;
+    --white: #FFFFFF;
+    --off-white: #F8F8F8;
+    --shadow: 0 2px 16px rgba(0,0,0,0.07);
+    --shadow-md: 0 4px 32px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--gray-dark);
+    color-scheme: light only;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  .cover {
+    background: var(--white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--gray-line);
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(232,93,47,0.06) 0%, transparent 55%),
+                radial-gradient(ellipse at 15% 85%, rgba(232,93,47,0.04) 0%, transparent 45%);
+    pointer-events: none;
+  }
+  .cover-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 4px; color: var(--orange); text-transform: uppercase; margin-bottom: 28px; position: relative; z-index: 1; }
+  .cover h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 6vw, 72px); font-weight: 900; color: var(--black); line-height: 1.1; max-width: 820px; position: relative; z-index: 1; margin-bottom: 12px; }
+  .cover h1 span { color: var(--orange); }
+  .cover-sub { font-size: 17px; color: var(--gray-mid); margin-top: 20px; max-width: 560px; position: relative; z-index: 1; line-height: 1.7; }
+  .cover-line { width: 48px; height: 3px; background: var(--orange); margin: 36px auto; position: relative; z-index: 1; border-radius: 2px; }
+  .cover-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray-light); letter-spacing: 2px; position: relative; z-index: 1; }
+  .cover-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--orange-pale); border: 1px solid rgba(232,93,47,0.2); border-radius: 40px; padding: 8px 20px; font-size: 12px; color: var(--orange); margin-bottom: 48px; position: relative; z-index: 1; letter-spacing: 0.5px; font-weight: 500; }
+  .cover-nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 48px; position: relative; z-index: 1; }
+  .cover-nav a { text-decoration: none; background: var(--white); border: 1px solid var(--gray-line); color: var(--gray-dark); padding: 8px 18px; border-radius: 6px; font-size: 13px; transition: all 0.18s; letter-spacing: 0.3px; font-weight: 500; }
+  .cover-nav a:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-pale); }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 32px; }
+  .section { padding: 72px 0 48px; border-bottom: 1px solid var(--gray-line); background: var(--white); }
+  .section:last-child { border-bottom: none; }
+
+  .section-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--orange); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(26px, 4vw, 42px); font-weight: 700; line-height: 1.2; color: var(--black); margin-bottom: 16px; }
+  .section-intro { font-size: 16px; color: var(--gray-mid); max-width: 680px; line-height: 1.7; margin-bottom: 40px; }
+
+  .card-grid { display: grid; gap: 20px; }
+  .card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
+
+  .card { background: var(--white); border: 1px solid var(--gray-line); border-radius: 12px; padding: 28px; box-shadow: var(--shadow); position: relative; overflow: hidden; transition: box-shadow 0.2s; }
+  .card:hover { box-shadow: var(--shadow-md); }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--orange); }
+  .card.accent-red::before { background: #C0392B; }
+  .card.accent-green::before { background: #27AE60; }
+  .card.accent-blue::before { background: #2980B9; }
+  .card-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+  .card-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--orange); text-transform: uppercase; margin-bottom: 6px; }
+  .card-label.red { color: #C0392B; }
+  .card-label.green { color: #27AE60; }
+  .card-label.blue { color: #2980B9; }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--black); }
+  .card p { font-size: 14px; color: var(--gray-mid); line-height: 1.65; margin-bottom: 16px; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { font-size: 13.5px; color: var(--gray-dark); padding: 6px 0 6px 18px; position: relative; border-bottom: 1px solid var(--gray-line); }
+  .card ul li:last-child { border-bottom: none; }
+  .card ul li::before { content: '▸'; position: absolute; left: 0; color: var(--orange); font-size: 11px; top: 8px; }
+
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--gray-line); box-shadow: var(--shadow-md); margin-bottom: 32px; }
+  @media (max-width: 680px) { .type-grid { grid-template-columns: 1fr; } }
+  .type-col { padding: 36px 28px; position: relative; }
+  .type-col.core { background: #1A6B45; }
+  .type-col.adjacent { background: var(--orange); }
+  .type-col.transform { background: #1A3A5C; }
+  .type-col-pct { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 900; color: rgba(255,255,255,0.18); line-height: 1; position: absolute; top: 20px; right: 20px; }
+  .type-badge { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; color: rgba(255,255,255,0.65); text-transform: uppercase; margin-bottom: 8px; }
+  .type-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+  .type-desc { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 16px; }
+  .type-examples { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.7; font-style: italic; }
+  .type-kpis { margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 14px; }
+  .type-kpis-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.55); text-transform: uppercase; margin-bottom: 8px; }
+  .type-kpi-item { font-size: 12px; color: rgba(255,255,255,0.9); padding: 3px 0; display: flex; align-items: flex-start; gap: 6px; }
+  .type-kpi-item::before { content: '·'; color: rgba(255,255,255,0.4); flex-shrink: 0; }
+
+  .stages-wrapper { overflow-x: auto; padding-bottom: 8px; }
+  .stages { display: flex; align-items: stretch; min-width: 800px; gap: 0; }
+  .stage-block { flex: 1; position: relative; }
+  .stage-content { background: var(--white); border: 1px solid var(--gray-line); border-right: none; padding: 24px 18px; height: 100%; }
+  .stage-block:last-child .stage-content { border-right: 1px solid var(--gray-line); }
+  .gate { width: 32px; display: flex; align-items: center; justify-content: center; background: var(--black); position: relative; z-index: 2; flex-shrink: 0; clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%); }
+  .gate-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--orange); writing-mode: vertical-rl; letter-spacing: 2px; }
+  .stage-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--orange); letter-spacing: 2px; margin-bottom: 6px; }
+  .stage-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--black); line-height: 1.3; }
+  .stage-tasks { list-style: none; padding: 0; }
+  .stage-tasks li { font-size: 11.5px; color: var(--gray-mid); padding: 3px 0 3px 14px; position: relative; }
+  .stage-tasks li::before { content: '·'; position: absolute; left: 2px; color: var(--orange); font-size: 14px; line-height: 1.2; }
+  .stage-deliverable { margin-top: 12px; background: var(--orange-pale); border-radius: 6px; padding: 8px 10px; font-size: 11px; color: var(--gray-dark); line-height: 1.4; }
+  .stage-deliverable strong { color: var(--orange); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .kpi-card { background: var(--white); border: 1px solid var(--gray-line); border-radius: 10px; padding: 20px; text-align: center; position: relative; overflow: hidden; transition: box-shadow 0.2s; }
+  .kpi-card:hover { box-shadow: var(--shadow-md); }
+  .kpi-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--orange); }
+  .kpi-card.kpi-green::after { background: #27AE60; }
+  .kpi-card.kpi-red::after { background: #C0392B; }
+  .kpi-card.kpi-blue::after { background: #2980B9; }
+  .kpi-icon { font-size: 22px; margin-bottom: 8px; }
+  .kpi-name { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--gray-light); text-transform: uppercase; margin-bottom: 6px; }
+  .kpi-desc { font-size: 12.5px; color: var(--gray-dark); line-height: 1.5; }
+
+  .matrix-intro { background: var(--black); border-radius: 12px; padding: 32px; margin-bottom: 32px; color: #fff; }
+  .matrix-intro h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--orange); margin-bottom: 10px; }
+  .matrix-intro p { font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.7; }
+
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .principle { background: var(--white); border: 1px solid var(--gray-line); border-radius: 10px; padding: 24px; display: flex; gap: 16px; align-items: flex-start; transition: box-shadow 0.2s; }
+  .principle:hover { box-shadow: var(--shadow-md); }
+  .principle-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: rgba(232,93,47,0.15); line-height: 1; flex-shrink: 0; width: 48px; }
+  .principle h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; color: var(--black); }
+  .principle p { font-size: 13px; color: var(--gray-mid); line-height: 1.6; }
+
+  .refs { background: var(--off-white); border: 1px solid var(--gray-line); border-radius: 10px; padding: 24px 28px; margin-top: 40px; }
+  .refs-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--orange); text-transform: uppercase; margin-bottom: 12px; }
+  .refs ul { list-style: none; padding: 0; }
+  .refs ul li { font-size: 12.5px; color: var(--gray-mid); padding: 4px 0 4px 16px; position: relative; }
+  .refs ul li::before { content: '—'; position: absolute; left: 0; color: var(--orange); }
+
+  @media (prefers-color-scheme: dark) {
+    :root { color-scheme: light; }
+    html, body { background: var(--white) !important; color: var(--gray-dark) !important; }
+    .section { background: var(--white) !important; }
+    .cover { background: var(--white) !important; }
+    .card { background: var(--white) !important; }
+    .card h3 { color: var(--black) !important; }
+    .card p { color: var(--gray-mid) !important; }
+    .card ul li { color: var(--gray-dark) !important; }
+    .stage-content { background: var(--white) !important; }
+    .stage-name { color: var(--black) !important; }
+    .stage-tasks li { color: var(--gray-mid) !important; }
+    .kpi-card { background: var(--white) !important; }
+    .kpi-desc { color: var(--gray-dark) !important; }
+    .principle { background: var(--white) !important; }
+    .principle h4 { color: var(--black) !important; }
+    .principle p { color: var(--gray-mid) !important; }
+    .refs { background: var(--off-white) !important; }
+    .refs ul li { color: var(--gray-mid) !important; }
+    .section-title { color: var(--black) !important; }
+    .section-intro { color: var(--gray-mid) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-badge">🍷 Material de Trabajo · Uso Confidencial</div>
+  <div class="cover-tag">Taller de Innovación · Industria de Bebidas Alcohólicas</div>
+  <h1>Gestión <span>Integral</span> de la Innovación de Producto</h1>
+  <p class="cover-sub">Marco de mejores prácticas, proceso Stage-Gate y herramienta de diagnóstico comparativo para áreas de Marketing, Trade, Producción, Ventas y Finanzas.</p>
+  <div class="cover-line"></div>
+  <div class="cover-meta">DOCUMENTO DE REFERENCIA · TALLER ESTRATÉGICO</div>
+  <nav class="cover-nav">
+    <a href="#marco">Marco Conceptual</a>
+    <a href="#tipos">Tipos de Innovación</a>
+    <a href="#proceso">Proceso Stage-Gate</a>
+    <a href="#postlanzamiento">Post-Lanzamiento</a>
+    <a href="#principios">Principios Clave</a>
+    <a href="participante.html" style="background:rgba(232,93,47,0.15);border-color:var(--orange);color:var(--orange)">📋 Ir al Diagnóstico</a>
+    <a href="admin.html" style="background:rgba(41,128,185,0.12);border-color:#2980B9;color:#2980B9">📊 Dashboard Admin</a>
+  </nav>
+</div>
+
+<div id="marco" class="section">
+  <div class="container">
+    <div class="section-tag">01 · Marco Conceptual</div>
+    <h2 class="section-title">¿Por qué gestionar la innovación como sistema?</h2>
+    <p class="section-intro">Las empresas que sobresalen no tratan la innovación como proyectos aislados, sino como un sistema integrado con estrategia, proceso, métricas y capacidades de ejecución alineadas entre todas las áreas.</p>
+    <div class="card-grid card-grid-3">
+      <div class="card">
+        <span class="card-icon">🏗️</span>
+        <div class="card-label">Pilar 1</div>
+        <h3>Estrategia de Portafolio</h3>
+        <p>La innovación debe responder explícitamente a la estrategia de crecimiento. Sin claridad de rol y de ambición, los recursos se dispersan en proyectos sin prioridad.</p>
+        <ul>
+          <li>Modelo de ambición: Core / Adjacent / Transformacional</li>
+          <li>Asignación presupuestal diferenciada por horizonte</li>
+          <li>Alineación con metas de volumen, participación y rentabilidad</li>
+          <li>Revisión de portafolio activo vs. inactivo</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <span class="card-icon">⚙️</span>
+        <div class="card-label red">Pilar 2</div>
+        <h3>Proceso Disciplinado</h3>
+        <p>Un proceso Stage-Gate robusto asegura que las decisiones de inversión se toman con la información correcta en el momento correcto, reduciendo el riesgo de fallo.</p>
+        <ul>
+          <li>Criterios de aprobación explícitos por gate</li>
+          <li>Equipos multifuncionales desde ideación</li>
+          <li>Voice of Consumer integrada en cada etapa</li>
+          <li>Proceso adaptable según tamaño/riesgo del proyecto</li>
+        </ul>
+      </div>
+      <div class="card accent-green">
+        <span class="card-icon">📊</span>
+        <div class="card-label green">Pilar 3</div>
+        <h3>Ejecución & Medición</h3>
+        <p>El lanzamiento es el inicio, no el fin. La innovación requiere acompañamiento activo en ventas, marketing y distribución con KPIs definidos previamente.</p>
+        <ul>
+          <li>Plan de ejecución de mercado pre-lanzamiento</li>
+          <li>Métricas de tracking post-lanzamiento (90/180 días)</li>
+          <li>Dashboard de salud de la innovación</li>
+          <li>Protocolo de aceleración o descontinuación</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 32px;">
+      <div class="matrix-intro">
+        <h3>El Sistema Integrado de Innovación</h3>
+        <p>Las mejores compañías de bebidas alcohólicas —Diageo, AB InBev, Bacardi— operan la innovación como un sistema end-to-end: desde la generación de insights hasta la revisión post-lanzamiento, con responsables claros, criterios de decisión predefinidos y métricas que conectan la idea original con el resultado de negocio. <strong style="color:var(--orange-light);">Diageo reporta que desde 2009, la innovación ha representado al menos la mitad de su crecimiento en ventas.</strong> Esto no es accidental — es el resultado de un sistema bien diseñado.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tipos" class="section">
+  <div class="container">
+    <div class="section-tag">02 · Tipos de Innovación & Roles Estratégicos</div>
+    <h2 class="section-title">Un portafolio equilibrado requiere claridad de roles</h2>
+    <p class="section-intro">Mejor práctica clave: definir explícitamente qué rol juega cada tipo de innovación en la estrategia, con inversión, métricas y horizonte de tiempo diferenciados. El modelo 70/20/10 de Harvard Business Review es el referente más adoptado en empresas de consumo.</p>
+    <div class="type-grid">
+      <div class="type-col core">
+        <div class="type-col-pct">70</div>
+        <div class="type-badge">CORE · INCREMENTAL</div>
+        <div class="type-name">Defender & Crecer</div>
+        <p class="type-desc">Mejoras a productos existentes, extensiones de línea, nuevos formatos o presentaciones. Protegen la base de negocio y generan retorno rápido con riesgo bajo.</p>
+        <p class="type-examples">Ej: nueva presentación de 355ml, variante de sabor, edición limitada estacional, mejorar receta base.</p>
+        <div class="type-kpis">
+          <div class="type-kpis-label">KPIs Diferenciados</div>
+          <div class="type-kpi-item">Incrementalidad vs. canibalización</div>
+          <div class="type-kpi-item">Adopción por canal / SKU</div>
+          <div class="type-kpi-item">Velocidad de rotación en punto de venta</div>
+          <div class="type-kpi-item">Margen bruto vs. producto base</div>
+          <div class="type-kpi-item">Time-to-market (meta: 6-12 meses)</div>
+        </div>
+      </div>
+      <div class="type-col adjacent">
+        <div class="type-col-pct">20</div>
+        <div class="type-badge">ADJACENT · EXPANSIÓN</div>
+        <div class="type-name">Expandir & Capturar</div>
+        <p class="type-desc">Entrada a nuevas categorías, nuevos segmentos de consumidor o nuevas ocasiones de consumo aprovechando capacidades existentes. Riesgo moderado, retorno a mediano plazo.</p>
+        <p class="type-examples">Ej: Ready-to-Drink de una marca existente, entrada al segmento low/no-alcohol, co-branding con otra categoría.</p>
+        <div class="type-kpis">
+          <div class="type-kpis-label">KPIs Diferenciados</div>
+          <div class="type-kpi-item">Trial rate en nuevo segmento</div>
+          <div class="type-kpi-item">Share en nueva categoría/canal</div>
+          <div class="type-kpi-item">Retención (repeat purchase 3 meses)</div>
+          <div class="type-kpi-item">Penetración de nuevos hogares</div>
+          <div class="type-kpi-item">ROI a 24 meses</div>
+        </div>
+      </div>
+      <div class="type-col transform">
+        <div class="type-col-pct">10</div>
+        <div class="type-badge">TRANSFORMACIONAL</div>
+        <div class="type-name">Explorar & Disruptar</div>
+        <p class="type-desc">Innovaciones que crean nuevos mercados o modelos de negocio. Alto riesgo, horizonte largo. Requieren proceso y métricas completamente distintos al core.</p>
+        <p class="type-examples">Ej: bebida con ingredientes funcionales, modelo D2C, producto para Generación Z en formato no-convencional.</p>
+        <div class="type-kpis">
+          <div class="type-kpis-label">KPIs Diferenciados</div>
+          <div class="type-kpi-item">Learning milestones por sprint</div>
+          <div class="type-kpi-item">Velocidad de iteración (ciclos)</div>
+          <div class="type-kpi-item">Consumer acceptance score</div>
+          <div class="type-kpi-item">Tamaño de mercado potencial</div>
+          <div class="type-kpi-item">Escenarios de escalabilidad</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--gray-mid);text-align:center;margin-top:8px;">Modelo de Ambición de Innovación · Harvard Business Review / BCG · Nagji & Tuff, 2012</p>
+  </div>
+</div>
+
+<div id="proceso" class="section">
+  <div class="container">
+    <div class="section-tag">03 · Proceso Stage-Gate</div>
+    <h2 class="section-title">De la idea al lanzamiento con rigor y velocidad</h2>
+    <p class="section-intro">El proceso Stage-Gate® —desarrollado por Robert Cooper y adoptado por PepsiCo, P&G, AB InBev y otras líderes— divide el desarrollo en etapas con puertas de decisión explícitas. Cada gate tiene criterios de aprobación claros: el equipo avanza, regresa o cancela el proyecto.</p>
+    <div class="stages-wrapper">
+      <div class="stages">
+        <div class="stage-block">
+          <div class="stage-content" style="background:#FFF3EF;">
+            <div class="stage-num">ETAPA 0</div>
+            <div class="stage-name">Descubrimiento & Generación de Ideas</div>
+            <ul class="stage-tasks">
+              <li>Análisis de tendencias de consumidor (cultural, wellness, premiumización)</li>
+              <li>Insights de fuerza de ventas y trade marketing</li>
+              <li>Scouting de innovación de competencia y mercados análogos</li>
+              <li>Ideation workshops multifuncionales</li>
+            </ul>
+            <div class="stage-deliverable"><strong>OUTPUT ·</strong> Banco de ideas priorizadas con fit estratégico mínimo</div>
+          </div>
+        </div>
+        <div class="gate"><span class="gate-num">G1</span></div>
+        <div class="stage-block">
+          <div class="stage-content">
+            <div class="stage-num">ETAPA 1</div>
+            <div class="stage-name">Evaluación Rápida (Scoping)</div>
+            <ul class="stage-tasks">
+              <li>Análisis de mercado rápido y estimación de oportunidad</li>
+              <li>Evaluación técnica preliminar (producción, ingredientes)</li>
+              <li>Screening financiero (tamaño de premio)</li>
+              <li>Revisión regulatoria inicial</li>
+            </ul>
+            <div class="stage-deliverable"><strong>OUTPUT ·</strong> Concept brief + estimación inicial de P&L</div>
+          </div>
+        </div>
+        <div class="gate"><span class="gate-num">G2</span></div>
+        <div class="stage-block">
+          <div class="stage-content">
+            <div class="stage-num">ETAPA 2</div>
+            <div class="stage-name">Construcción del Caso de Negocio</div>
+            <ul class="stage-tasks">
+              <li>Investigación cualitativa y cuantitativa de consumidor</li>
+              <li>Pruebas de concepto / prototipo con consumidores reales</li>
+              <li>Plan de precios y posicionamiento</li>
+              <li>Análisis competitivo profundo</li>
+              <li>Business case con escenarios (best / base / worst)</li>
+            </ul>
+            <div class="stage-deliverable"><strong>OUTPUT ·</strong> Business case aprobado + prototipos validados</div>
+          </div>
+        </div>
+        <div class="gate"><span class="gate-num">G3</span></div>
+        <div class="stage-block">
+          <div class="stage-content">
+            <div class="stage-num">ETAPA 3</div>
+            <div class="stage-name">Desarrollo & Pruebas</div>
+            <ul class="stage-tasks">
+              <li>Desarrollo de fórmula / producto final</li>
+              <li>Diseño de empaque y pruebas de packaging</li>
+              <li>Plan de producción y aprovisionamiento</li>
+              <li>Pruebas de uso en hogar (HUT) y pruebas ciegas</li>
+              <li>Definición de KPIs de lanzamiento y targets de distribución</li>
+            </ul>
+            <div class="stage-deliverable"><strong>OUTPUT ·</strong> Producto final + plan de lanzamiento con KPIs</div>
+          </div>
+        </div>
+        <div class="gate"><span class="gate-num">G4</span></div>
+        <div class="stage-block">
+          <div class="stage-content">
+            <div class="stage-num">ETAPA 4</div>
+            <div class="stage-name">Prueba de Mercado (Piloto)</div>
+            <ul class="stage-tasks">
+              <li>Lanzamiento controlado en mercados seleccionados</li>
+              <li>Test de ejecución en punto de venta</li>
+              <li>Validación de la propuesta de valor con consumidor real</li>
+              <li>Medición de distribución numérica y ponderada</li>
+              <li>Calibración de forecast y plan de A&P</li>
+            </ul>
+            <div class="stage-deliverable"><strong>OUTPUT ·</strong> Resultados de piloto + go/no-go nacional</div>
+          </div>
+        </div>
+        <div class="gate"><span class="gate-num">G5</span></div>
+        <div class="stage-block">
+          <div class="stage-content" style="background:#111111;border-color:#111111;">
+            <div class="stage-num" style="color:#E85D2F;">ETAPA 5</div>
+            <div class="stage-name" style="color:#fff;">Lanzamiento Nacional</div>
+            <ul class="stage-tasks" style="color:rgba(255,255,255,0.8);">
+              <li>Ejecución full con soporte de A&P</li>
+              <li>Sell-in a canales y capacitación de fuerza de ventas</li>
+              <li>Activaciones de Trade Marketing</li>
+              <li>Comunicación al consumidor (above y below the line)</li>
+              <li>Activación del dashboard de tracking post-lanzamiento</li>
+            </ul>
+            <div class="stage-deliverable" style="background:rgba(232,93,47,0.2);color:#fff;"><strong style="color:#E85D2F;">OUTPUT ·</strong> Innovación activa en mercado + ciclo de revisión 30/90/180 días</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:24px;" class="card-grid card-grid-2">
+      <div class="card">
+        <div class="card-label">Criterios de Gate (Ejemplo)</div>
+        <h3>¿Qué evalúa cada puerta?</h3>
+        <ul>
+          <li><strong>Fit estratégico:</strong> ¿responde a una prioridad declarada?</li>
+          <li><strong>Atractivo de mercado:</strong> ¿tamaño y crecimiento de la oportunidad?</li>
+          <li><strong>Factibilidad técnica:</strong> ¿podemos producirlo con calidad?</li>
+          <li><strong>Viabilidad financiera:</strong> ¿el P&L tiene sentido en base y peor caso?</li>
+          <li><strong>Consumer appeal:</strong> ¿hay evidencia de intención de compra?</li>
+          <li><strong>Riesgo regulatorio:</strong> ¿cumple con normativas locales?</li>
+        </ul>
+      </div>
+      <div class="card accent-blue">
+        <div class="card-label blue">Mejor Práctica Cross-Funcional</div>
+        <h3>El equipo multifuncional desde el Día 1</h3>
+        <p>Las empresas más exitosas integran a Marketing, Trade Marketing, Ventas, Producción y Finanzas <em>desde la Etapa 0</em>, no solo en el lanzamiento. Esto reduce re-trabajo, acorta time-to-market y garantiza que la propuesta de valor sea ejecutable en mercado.</p>
+        <ul>
+          <li>Un dueño de proyecto (Innovation Lead) con autoridad clara</li>
+          <li>Representante de ventas/trade desde el concepto</li>
+          <li>Finanzas co-crea el business case (no solo lo valida)</li>
+          <li>Producción identifica riesgos de capacidad desde etapa 2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="postlanzamiento" class="section">
+  <div class="container">
+    <div class="section-tag">04 · Ejecución & Seguimiento Post-Lanzamiento</div>
+    <h2 class="section-title">El lanzamiento es el inicio, no la meta</h2>
+    <p class="section-intro">Una de las mayores brechas en la industria: se invierte enorme esfuerzo en desarrollar la innovación pero el acompañamiento post-lanzamiento se debilita rápidamente. Las mejores prácticas establecen un período formal de 180 días con revisiones estructuradas y recursos dedicados.</p>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-icon">📦</div><div class="kpi-name">Distribución</div><div class="kpi-desc">Numérica y ponderada por canal. Target pre-definido en Gate 4. Seguimiento semanal en primeras 8 semanas.</div></div>
+      <div class="kpi-card kpi-green"><div class="kpi-icon">💰</div><div class="kpi-name">Ventas & Volumen</div><div class="kpi-desc">Velocidad de salida por punto de venta. Comparativo vs. forecast de business case. NSV vs. plan.</div></div>
+      <div class="kpi-card kpi-red"><div class="kpi-icon">📈</div><div class="kpi-name">Rentabilidad</div><div class="kpi-desc">Margen bruto real vs. proyectado. P&L de la innovación en sus primeros 6/12 meses. Canibalización de portafolio.</div></div>
+      <div class="kpi-card kpi-blue"><div class="kpi-icon">👥</div><div class="kpi-name">Consumer KPIs</div><div class="kpi-desc">Trial rate, repeat rate, consumer satisfaction score. Net Promoter Score específico para la innovación.</div></div>
+      <div class="kpi-card"><div class="kpi-icon">📣</div><div class="kpi-name">Soporte de Marketing</div><div class="kpi-desc">Inversión A&P ejecutada vs. comprometida. GRPs / impresiones / cobertura de medios. Ejecución de activaciones en canal.</div></div>
+      <div class="kpi-card kpi-green"><div class="kpi-icon">🏪</div><div class="kpi-name">Trade & Ejecución PDV</div><div class="kpi-desc">Exhibición adicional (%tiendas con display). Share of shelf. Cumplimiento de planograma. Cobertura de trade activities.</div></div>
+      <div class="kpi-card kpi-red"><div class="kpi-icon">🧑‍💼</div><div class="kpi-name">Fuerza de Ventas</div><div class="kpi-desc">% de la fuerza capacitada en la innovación. Score de conocimiento del producto. Número de cuentas nuevas aperturadas.</div></div>
+      <div class="kpi-card kpi-blue"><div class="kpi-icon">⏱️</div><div class="kpi-name">Velocidad de Respuesta</div><div class="kpi-desc">Tiempo de reacción ante desviaciones (out-of-stock, quiebre de calidad, oportunidad de aceleración). Ciclos de revisión 30/90/180 días.</div></div>
+    </div>
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <div class="card-label">Protocolo de Revisión</div>
+        <h3>Ciclos de Revisión Formal</h3>
+        <ul>
+          <li><strong>30 días:</strong> Revisión de ejecución — distribución, sell-in, activación de A&P. ¿El plan de go-to-market se ejecutó?</li>
+          <li><strong>90 días:</strong> Revisión de salud — velocidad de venta, primeros datos de consumidor (trial/repeat), rentabilidad inicial</li>
+          <li><strong>180 días:</strong> Revisión estratégica — ¿la innovación cumple su rol de portafolio? ¿Acelerar, ajustar o descontinuar?</li>
+          <li><strong>12 meses:</strong> Post-mortem completo — lecciones aprendidas para retroalimentar el proceso</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <div class="card-label red">Capacitación & Sell-In</div>
+        <h3>La Comunicación Interna como Palanca</h3>
+        <p>Las innovaciones fracasan frecuentemente no por falta de demanda, sino porque la fuerza de ventas no tiene claridad sobre la propuesta de valor, el precio, o el material de apoyo en punto de venta.</p>
+        <ul>
+          <li>Lanzamiento interno antes del lanzamiento externo (pre-sell)</li>
+          <li>Training kit: pitch, precios, materiales de activación, FAQs</li>
+          <li>Incentivos de sell-in ligados a KPIs de distribución</li>
+          <li>Herramienta de seguimiento para supervisores de ventas</li>
+          <li>Comunicación continua de resultados a toda la fuerza</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="principios" class="section">
+  <div class="container">
+    <div class="section-tag">05 · Principios de la Innovación Ganadora</div>
+    <h2 class="section-title">Lo que separa a las empresas que innovan bien</h2>
+    <p class="section-intro">Basado en investigación de Stage-Gate International, Harvard Business Review y experiencia de compañías líderes en bebidas alcohólicas como Diageo, AB InBev y Bacardi.</p>
+    <div class="principles">
+      <div class="principle"><div class="principle-num">01</div><div><h4>Consumer First, siempre</h4><p>Las innovaciones exitosas parten de un insight de consumidor real, no de una capacidad de producción disponible o de la presión de llenar el portafolio. La voz del consumidor debe estar presente en cada etapa del proceso.</p></div></div>
+      <div class="principle"><div class="principle-num">02</div><div><h4>Calidad de ideas > cantidad</h4><p>El número de ideas en el embudo no es indicador de salud de la innovación. Lo que importa es la tasa de conversión: ideas que pasan por el proceso y se convierten en lanzamientos exitosos.</p></div></div>
+      <div class="principle"><div class="principle-num">03</div><div><h4>Matar rápido lo que no funciona</h4><p>El costo de continuar un proyecto fallido es exponencialmente mayor que cancelarlo temprano. Un proceso Stage-Gate bien implementado debe tener el mismo reconocimiento por matar proyectos a tiempo que por lanzarlos.</p></div></div>
+      <div class="principle"><div class="principle-num">04</div><div><h4>La ejecución es parte de la innovación</h4><p>Una gran idea mal ejecutada en mercado es un fracaso de innovación. El plan de go-to-market, la capacitación de ventas y el soporte de marketing son tan críticos como la formulación del producto.</p></div></div>
+      <div class="principle"><div class="principle-num">05</div><div><h4>Aprender del fracaso es no-negociable</h4><p>Las empresas con las mejores tasas de éxito en innovación no son las que menos fallan — son las que extraen más aprendizaje de sus fallas y lo integran sistemáticamente en el siguiente ciclo.</p></div></div>
+      <div class="principle"><div class="principle-num">06</div><div><h4>Finanzas como socio estratégico</h4><p>Finanzas no es el árbitro final que aprueba o rechaza. Es un socio que co-construye el business case desde temprano, ayuda a definir los KPIs correctos y facilita la toma de decisiones con información financiera rigurosa pero adaptada al horizonte de cada tipo de innovación.</p></div></div>
+    </div>
+    <div class="refs">
+      <div class="refs-label">Fuentes & Referencias</div>
+      <ul>
+        <li>Cooper, R.G. — Stage-Gate® Product Innovation System: From Idea to Launch (Stage-Gate International)</li>
+        <li>Nagji, B. & Tuff, G. — Managing Your Innovation Portfolio (Harvard Business Review, 2012)</li>
+        <li>Diageo Annual Report & Strategy — Innovation as driver of sustained growth since 2009</li>
+        <li>AB InBev — Innovation and Smart Drinking strategy, cross-functional centers of excellence</li>
+        <li>NIQ / NielsenIQ — Beverage 2025: Innovation trends reshaping the shelf (2025)</li>
+        <li>GHJ Advisors — Innovation in Beverage Alcohol: Thinking Outside the Glass (2025)</li>
+        <li>Overproof — KPIs Alcohol Brands Should Track (2024)</li>
+        <li>McKinsey & Company — Three Horizons model for innovation portfolio management</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer style="background:var(--off-white);border-top:1px solid var(--gray-line);padding:32px;text-align:center;">
+  <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gray-light);">TALLER DE INNOVACIÓN · BEBIDAS ALCOHÓLICAS · USO INTERNO</p>
+</footer>
+
+</body>
+</html>
