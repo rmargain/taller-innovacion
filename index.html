@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="color-scheme" content="light only">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestión Integral de la Innovación · Bebidas Alcohólicas</title>
+<title data-i18n="page-title">Gestión Integral de la Innovación · Bebidas Alcohólicas</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -65,6 +65,9 @@
   .cover-nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 48px; position: relative; z-index: 1; }
   .cover-nav a { text-decoration: none; background: var(--white); border: 1px solid var(--gray-line); color: var(--gray-dark); padding: 8px 18px; border-radius: 6px; font-size: 13px; transition: all 0.18s; letter-spacing: 0.3px; font-weight: 500; }
   .cover-nav a:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-pale); }
+
+  .lang-toggle { position: absolute; top: 24px; right: 24px; background: var(--white); border: 1px solid var(--gray-line); color: var(--gray-mid); padding: 6px 14px; border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; cursor: pointer; transition: all .2s; z-index: 5; }
+  .lang-toggle:hover { border-color: var(--orange); color: var(--orange); }
 
   .container { max-width: 960px; margin: 0 auto; padding: 0 32px; }
   .section { padding: 72px 0 48px; border-bottom: 1px solid var(--gray-line); background: var(--white); }
@@ -182,27 +185,28 @@
 <body>
 
 <div class="cover">
-  <div class="cover-badge">🍷 Material de Trabajo · Uso Confidencial</div>
-  <div class="cover-tag">Taller de Innovación · Industria de Bebidas Alcohólicas</div>
-  <h1>Gestión <span>Integral</span> de la Innovación de Producto</h1>
-  <p class="cover-sub">Marco de mejores prácticas, proceso Stage-Gate y herramienta de diagnóstico comparativo para áreas de Marketing, Trade, Producción, Ventas y Finanzas.</p>
+  <button id="lang-toggle" class="lang-toggle" onclick="toggleLang()">EN</button>
+  <div class="cover-badge" data-i18n="cover-badge">🍷 Material de Trabajo · Uso Confidencial</div>
+  <div class="cover-tag" data-i18n="cover-tag">Taller de Innovación · Industria de Bebidas Alcohólicas</div>
+  <h1 data-i18n-html="cover-h1">Gestión <span>Integral</span> de la Innovación de Producto</h1>
+  <p class="cover-sub" data-i18n="cover-sub">Marco de mejores prácticas, proceso Stage-Gate y herramienta de diagnóstico comparativo para áreas de Marketing, Trade, Producción, Ventas y Finanzas.</p>
   <div class="cover-line"></div>
-  <div class="cover-meta">DOCUMENTO DE REFERENCIA · TALLER ESTRATÉGICO</div>
+  <div class="cover-meta" data-i18n="cover-meta">DOCUMENTO DE REFERENCIA · TALLER ESTRATÉGICO</div>
   <nav class="cover-nav">
-    <a href="#marco">Marco Conceptual</a>
-    <a href="#tipos">Tipos de Innovación</a>
-    <a href="#proceso">Proceso Stage-Gate</a>
-    <a href="#postlanzamiento">Post-Lanzamiento</a>
-    <a href="#principios">Principios Clave</a>
-    <a href="participante.html" style="background:rgba(232,93,47,0.15);border-color:var(--orange);color:var(--orange)">📋 Ir al Diagnóstico</a>
-    <a href="admin.html" style="background:rgba(41,128,185,0.12);border-color:#2980B9;color:#2980B9">📊 Dashboard Admin</a>
+    <a href="#marco" data-i18n="nav-marco">Marco Conceptual</a>
+    <a href="#tipos" data-i18n="nav-tipos">Tipos de Innovación</a>
+    <a href="#proceso" data-i18n="nav-proceso">Proceso Stage-Gate</a>
+    <a href="#postlanzamiento" data-i18n="nav-post">Post-Lanzamiento</a>
+    <a href="#principios" data-i18n="nav-principios">Principios Clave</a>
+    <a href="participante.html" style="background:rgba(232,93,47,0.15);border-color:var(--orange);color:var(--orange)" data-i18n="nav-diagnostic">📋 Ir al Diagnóstico</a>
+    <a href="admin.html" style="background:rgba(41,128,185,0.12);border-color:#2980B9;color:#2980B9" data-i18n="nav-admin">📊 Dashboard Admin</a>
   </nav>
 </div>
 
 <div id="marco" class="section">
   <div class="container">
-    <div class="section-tag">01 · Marco Conceptual</div>
-    <h2 class="section-title">¿Por qué gestionar la innovación como sistema?</h2>
+    <div class="section-tag" data-i18n="sec1-tag">01 · Marco Conceptual</div>
+    <h2 class="section-title" data-i18n="sec1-title">¿Por qué gestionar la innovación como sistema?</h2>
     <p class="section-intro">Las empresas que sobresalen no tratan la innovación como proyectos aislados, sino como un sistema integrado con estrategia, proceso, métricas y capacidades de ejecución alineadas entre todas las áreas.</p>
     <div class="card-grid card-grid-3">
       <div class="card">
@@ -253,8 +257,8 @@
 
 <div id="tipos" class="section">
   <div class="container">
-    <div class="section-tag">02 · Tipos de Innovación & Roles Estratégicos</div>
-    <h2 class="section-title">Un portafolio equilibrado requiere claridad de roles</h2>
+    <div class="section-tag" data-i18n="sec2-tag">02 · Tipos de Innovación & Roles Estratégicos</div>
+    <h2 class="section-title" data-i18n="sec2-title">Un portafolio equilibrado requiere claridad de roles</h2>
     <p class="section-intro">Mejor práctica clave: definir explícitamente qué rol juega cada tipo de innovación en la estrategia, con inversión, métricas y horizonte de tiempo diferenciados. El modelo 70/20/10 de Harvard Business Review es el referente más adoptado en empresas de consumo.</p>
     <div class="type-grid">
       <div class="type-col core">
@@ -309,8 +313,8 @@
 
 <div id="proceso" class="section">
   <div class="container">
-    <div class="section-tag">03 · Proceso Stage-Gate</div>
-    <h2 class="section-title">De la idea al lanzamiento con rigor y velocidad</h2>
+    <div class="section-tag" data-i18n="sec3-tag">03 · Proceso Stage-Gate</div>
+    <h2 class="section-title" data-i18n="sec3-title">De la idea al lanzamiento con rigor y velocidad</h2>
     <p class="section-intro">El proceso Stage-Gate® —desarrollado por Robert Cooper y adoptado por PepsiCo, P&G, AB InBev y otras líderes— divide el desarrollo en etapas con puertas de decisión explícitas. Cada gate tiene criterios de aprobación claros: el equipo avanza, regresa o cancela el proyecto.</p>
     <div class="stages-wrapper">
       <div class="stages">
@@ -433,8 +437,8 @@
 
 <div id="postlanzamiento" class="section">
   <div class="container">
-    <div class="section-tag">04 · Ejecución & Seguimiento Post-Lanzamiento</div>
-    <h2 class="section-title">El lanzamiento es el inicio, no la meta</h2>
+    <div class="section-tag" data-i18n="sec4-tag">04 · Ejecución & Seguimiento Post-Lanzamiento</div>
+    <h2 class="section-title" data-i18n="sec4-title">El lanzamiento es el inicio, no la meta</h2>
     <p class="section-intro">Una de las mayores brechas en la industria: se invierte enorme esfuerzo en desarrollar la innovación pero el acompañamiento post-lanzamiento se debilita rápidamente. Las mejores prácticas establecen un período formal de 180 días con revisiones estructuradas y recursos dedicados.</p>
     <div class="kpi-grid">
       <div class="kpi-card"><div class="kpi-icon">📦</div><div class="kpi-name">Distribución</div><div class="kpi-desc">Numérica y ponderada por canal. Target pre-definido en Gate 4. Seguimiento semanal en primeras 8 semanas.</div></div>
@@ -475,8 +479,8 @@
 
 <div id="principios" class="section">
   <div class="container">
-    <div class="section-tag">05 · Principios de la Innovación Ganadora</div>
-    <h2 class="section-title">Lo que separa a las empresas que innovan bien</h2>
+    <div class="section-tag" data-i18n="sec5-tag">05 · Principios de la Innovación Ganadora</div>
+    <h2 class="section-title" data-i18n="sec5-title">Lo que separa a las empresas que innovan bien</h2>
     <p class="section-intro">Basado en investigación de Stage-Gate International, Harvard Business Review y experiencia de compañías líderes en bebidas alcohólicas como Diageo, AB InBev y Bacardi.</p>
     <div class="principles">
       <div class="principle"><div class="principle-num">01</div><div><h4>Consumer First, siempre</h4><p>Las innovaciones exitosas parten de un insight de consumidor real, no de una capacidad de producción disponible o de la presión de llenar el portafolio. La voz del consumidor debe estar presente en cada etapa del proceso.</p></div></div>
@@ -503,8 +507,84 @@
 </div>
 
 <footer style="background:var(--off-white);border-top:1px solid var(--gray-line);padding:32px;text-align:center;">
-  <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gray-light);">TALLER DE INNOVACIÓN · BEBIDAS ALCOHÓLICAS · USO INTERNO</p>
+  <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gray-light);" data-i18n="footer">TALLER DE INNOVACIÓN · BEBIDAS ALCOHÓLICAS · USO INTERNO</p>
 </footer>
+
+<script>
+var TRANSLATIONS = {
+  en: {
+    'page-title': 'Comprehensive Innovation Management · Alcoholic Beverages',
+    'cover-badge': '🍷 Working Material · Confidential Use',
+    'cover-tag': 'Innovation Workshop · Alcoholic Beverages Industry',
+    'cover-h1': 'Comprehensive <span>Innovation</span> Management for Product',
+    'cover-sub': 'Best-practice framework, Stage-Gate process and comparative diagnostic tool for Marketing, Trade, Operations, Sales and Finance.',
+    'cover-meta': 'REFERENCE DOCUMENT · STRATEGIC WORKSHOP',
+    'nav-marco': 'Conceptual Framework',
+    'nav-tipos': 'Types of Innovation',
+    'nav-proceso': 'Stage-Gate Process',
+    'nav-post': 'Post-Launch',
+    'nav-principios': 'Key Principles',
+    'nav-diagnostic': '📋 Go to Diagnostic',
+    'nav-admin': '📊 Admin Dashboard',
+    'sec1-tag': '01 · Conceptual Framework',
+    'sec1-title': 'Why manage innovation as a system?',
+    'sec2-tag': '02 · Innovation Types & Strategic Roles',
+    'sec2-title': 'A balanced portfolio requires role clarity',
+    'sec3-tag': '03 · Stage-Gate Process',
+    'sec3-title': 'From idea to launch with rigor and speed',
+    'sec4-tag': '04 · Post-Launch Execution & Tracking',
+    'sec4-title': 'The launch is the start, not the finish line',
+    'sec5-tag': '05 · Principles of Winning Innovation',
+    'sec5-title': 'What separates companies that innovate well',
+    'footer': 'INNOVATION WORKSHOP · ALCOHOLIC BEVERAGES · INTERNAL USE'
+  }
+};
+
+var originals = {};
+
+function currentLang() {
+  try { return localStorage.getItem('lang') || 'es'; } catch(e) { return 'es'; }
+}
+
+function captureOriginals() {
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    if (originals[el.dataset.i18n] === undefined) originals[el.dataset.i18n] = el.textContent;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var k = '__html_' + el.dataset.i18nHtml;
+    if (originals[k] === undefined) originals[k] = el.innerHTML;
+  });
+}
+
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var k = el.dataset.i18n;
+    if (lang === 'en' && TRANSLATIONS.en[k] !== undefined) el.textContent = TRANSLATIONS.en[k];
+    else el.textContent = originals[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var k = el.dataset.i18nHtml;
+    if (lang === 'en' && TRANSLATIONS.en[k] !== undefined) el.innerHTML = TRANSLATIONS.en[k];
+    else el.innerHTML = originals['__html_' + k];
+  });
+  var titleEl = document.querySelector('title[data-i18n]');
+  if (titleEl) {
+    var k = titleEl.dataset.i18n;
+    document.title = (lang === 'en' && TRANSLATIONS.en[k]) ? TRANSLATIONS.en[k] : originals[k];
+  }
+  try { localStorage.setItem('lang', lang); } catch(e) {}
+  var btn = document.getElementById('lang-toggle');
+  if (btn) btn.textContent = lang === 'es' ? 'EN' : 'ES';
+}
+
+function toggleLang() {
+  setLang(currentLang() === 'es' ? 'en' : 'es');
+}
+
+captureOriginals();
+setLang(currentLang());
+</script>
 
 </body>
 </html>
