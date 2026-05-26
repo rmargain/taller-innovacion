@@ -17,6 +17,7 @@
   .step p{font-size:14px;color:#5A4830;margin-bottom:10px}
   .step p:last-child{margin-bottom:0}
   code{background:#F5EDD0;padding:2px 8px;border-radius:4px;font-family:'DM Mono',monospace;font-size:12.5px;color:#8B2635}
+  pre{background:#1A1208;color:#E8C97A;padding:18px 20px;border-radius:8px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.55;overflow-x:auto;margin:14px 0;white-space:pre}
   a{color:#8B2635;font-weight:600}
   .note{background:#1A1208;color:rgba(250,246,237,.8);border-radius:8px;padding:16px 20px;font-size:13px;margin-top:32px;line-height:1.7}
   .note strong{color:#C9A84C}
@@ -28,46 +29,87 @@
 <div class="wrap">
   <div class="tag">Configuración · Una sola vez</div>
   <h1>Cómo activar el backend del taller</h1>
-  <p class="intro">Sigue estos pasos desde cualquier dispositivo (móvil o desktop). Tarda menos de 5 minutos y solo se hace una vez.</p>
+  <p class="intro">Backend basado en Supabase — Postgres administrado, gratis, muy confiable. Sigue estos pasos desde un desktop (necesitarás un editor de texto). Tarda ~10 minutos y solo se hace una vez.</p>
 
   <div class="step">
     <div class="step-num">1</div>
-    <h3>Crear cuenta en JSONBin.io</h3>
-    <p>Ve a <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> y crea una cuenta gratuita con tu correo. No requiere tarjeta de crédito.</p>
+    <h3>Crear cuenta y proyecto en Supabase</h3>
+    <p>Ve a <a href="https://supabase.com" target="_blank">supabase.com</a> y entra con tu correo o cuenta de GitHub. El plan gratuito incluye 500MB de base de datos y 50,000 usuarios mensuales — más que suficiente.</p>
+    <p>Presiona <strong>"New project"</strong>. Asigna:</p>
+    <p>• <strong>Name</strong>: <code>taller-innovacion</code> (o lo que prefieras)</p>
+    <p>• <strong>Database password</strong>: genera uno fuerte y guárdalo (no lo necesitarás para este taller, pero Supabase lo pide)</p>
+    <p>• <strong>Region</strong>: la más cercana a ti (ej. <code>East US (North Virginia)</code> para Latinoamérica)</p>
+    <p>Presiona <strong>"Create new project"</strong> y espera ~2 minutos a que termine de provisionar.</p>
   </div>
 
   <div class="step">
     <div class="step-num">2</div>
-    <h3>Crear el Bin de datos</h3>
-    <p>Una vez dentro, presiona el botón <strong>"+ Create Bin"</strong>.</p>
-    <p>En el editor que aparece, borra lo que haya y pega exactamente esto:</p>
-    <p><code>{"participants":[]}</code></p>
-    <p>Presiona <strong>"Create Bin"</strong> (o el botón de guardar). Verás que aparece un ID en la URL o encima del contenido — ese es tu <strong>BIN ID</strong>. Cópialo.</p>
+    <h3>Crear la tabla y políticas con SQL</h3>
+    <p>En el menú lateral izquierdo, abre el <strong>SQL Editor</strong> (ícono de consola).</p>
+    <p>Presiona <strong>"New query"</strong>, pega este bloque completo, y luego presiona <strong>"Run"</strong>:</p>
+<pre>create table participants (
+  id text primary key,
+  timestamp timestamptz not null,
+  name text not null,
+  area text not null,
+  years text,
+  scores jsonb not null,
+  gaps jsonb
+);
+
+alter table participants enable row level security;
+
+create policy "anon insert" on participants
+  for insert to anon with check (true);
+
+create policy "anon select" on participants
+  for select to anon using (true);
+
+create or replace function reset_participants(p_password text)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if p_password != 'CAMBIA_ESTE_PASSWORD' then
+    raise exception 'password incorrecto';
+  end if;
+  delete from participants;
+end;
+$$;
+
+grant execute on function reset_participants(text) to anon;</pre>
+    <p><strong>Importante</strong>: antes de presionar Run, cambia <code>CAMBIA_ESTE_PASSWORD</code> por el password que vas a usar para el botón "Reset Datos" en admin. Este password queda guardado en la base de datos, NO en el HTML.</p>
+    <p>Si todo sale bien verás <strong>"Success. No rows returned"</strong>.</p>
   </div>
 
   <div class="step">
     <div class="step-num">3</div>
-    <h3>Obtener tu API Key</h3>
-    <p>En el menú superior de JSONBin, haz clic en tu nombre de usuario o en el ícono de perfil, y entra a <strong>"API Keys"</strong>.</p>
-    <p>Verás tu <strong>Master Key</strong> (empieza con <code>$2a$10$...</code>). Cópiala.</p>
+    <h3>Copiar URL y Anon Key del proyecto</h3>
+    <p>En el menú lateral, ve a <strong>Project Settings → API</strong> (ícono de engrane).</p>
+    <p>Copia los dos valores que verás:</p>
+    <p>• <strong>Project URL</strong>: algo como <code>https://abcdefgh.supabase.co</code></p>
+    <p>• <strong>anon / public key</strong>: una cadena larga que empieza con <code>eyJ...</code></p>
+    <p><strong>No copies</strong> la <code>service_role key</code> — esa es secreta y nunca debe ir en el HTML. La <code>anon key</code> sí está diseñada para ser pública.</p>
   </div>
 
   <div class="step">
     <div class="step-num">4</div>
-    <h3>Subir los archivos a GitHub Pages</h3>
-    <p>Ve a <a href="https://github.com" target="_blank">github.com</a> y crea una cuenta gratuita si no tienes.</p>
-    <p>Crea un repositorio nuevo (botón <strong>"New"</strong> o <strong>"+"</strong>). Nómbralo por ejemplo <code>taller-innovacion</code>. Márcalo como <strong>Public</strong>.</p>
-    <p>Sube los 3 archivos HTML (<code>index.html</code>, <code>participante.html</code>, <code>admin.html</code>) arrastrándolos al repositorio.</p>
-    <p>Ve a <strong>Settings → Pages</strong>, en "Branch" selecciona <code>main</code> y guarda. En 1-2 minutos tu sitio estará en <code>https://TU_USUARIO.github.io/taller-innovacion</code>.</p>
+    <h3>Pegar las credenciales en los archivos</h3>
+    <p>Abre <code>participante.html</code> y <code>admin.html</code> en un editor de texto (VS Code, Notepad, TextEdit, etc.).</p>
+    <p>En ambos archivos, busca y reemplaza:</p>
+    <p>• <code>SUPABASE_URL_PLACEHOLDER</code> → tu Project URL del paso 3</p>
+    <p>• <code>SUPABASE_ANON_KEY_PLACEHOLDER</code> → tu anon key del paso 3</p>
+    <p>Guarda los archivos. El password de admin no va aquí — ya quedó en la base de datos (paso 2).</p>
   </div>
 
   <div class="step">
     <div class="step-num">5</div>
-    <h3>Configurar las credenciales en los archivos</h3>
-    <p>Abre la URL de GitHub Pages en tu navegador (móvil o desktop). Entra a <strong>participante.html</strong> y al admin — en ambos verás un panel gris oscuro en la parte superior.</p>
-    <p>Pega el <strong>BIN ID</strong> y la <strong>Master Key</strong> en los campos correspondientes y presiona <strong>"Guardar y verificar conexión"</strong> (o <strong>"Conectar"</strong>).</p>
-    <p>Si aparece <strong>"✓ Conectado correctamente"</strong>, ¡listo! Las credenciales quedan guardadas en el navegador de ese dispositivo.</p>
-    <p><strong>Repite este paso en cada dispositivo que vaya a usar los archivos</strong> (solo una vez por dispositivo).</p>
+    <h3>Subir los archivos a GitHub Pages</h3>
+    <p>Ve a <a href="https://github.com" target="_blank">github.com</a> y crea una cuenta si no tienes. Crea un repositorio nuevo (botón <strong>"New"</strong> o <strong>"+"</strong>). Nómbralo por ejemplo <code>taller-innovacion</code>. Márcalo como <strong>Public</strong> (GitHub Pages gratuito requiere repositorio público).</p>
+    <p>Sube los 4 archivos (<code>index.html</code>, <code>participante.html</code>, <code>admin.html</code>, <code>INSTRUCCIONES.html</code>) arrastrándolos al repositorio.</p>
+    <p>Ve a <strong>Settings → Pages</strong>, en "Branch" selecciona <code>main</code> y guarda. En 1-2 minutos tu sitio estará en <code>https://TU_USUARIO.github.io/taller-innovacion</code>.</p>
   </div>
 
   <div class="step">
@@ -78,7 +120,11 @@
   </div>
 
   <div class="note">
-    <strong>¿Por qué GitHub Pages?</strong> Los archivos HTML funcionan perfectamente cuando se sirven desde una URL pública (https://). El problema anterior ocurría porque los archivos abiertos directamente desde el disco (<code>file://...</code>) tienen restricciones de seguridad del navegador que bloquean las llamadas a APIs externas. GitHub Pages resuelve esto de forma gratuita y permanente.
+    <strong>Sobre seguridad:</strong> La <code>anon key</code> de Supabase está diseñada para ser embebida en código del lado del cliente. Las políticas de Row Level Security (RLS) configuradas en el paso 2 garantizan que con esa key solo se puede insertar y leer respuestas — no se pueden borrar ni modificar registros existentes. El password de admin vive en la función de Postgres, no en el HTML, así que aunque alguien lea el código fuente no puede borrar datos.
+  </div>
+
+  <div class="note">
+    <strong>¿Por qué Supabase?</strong> Es Postgres administrado con uptime de nivel empresarial. A diferencia de servicios chicos de JSON, no se cae a media sesión. Cada respuesta es un INSERT atómico (no hay race condition cuando varios participantes envían al mismo tiempo). Plan gratis cubre miles de respuestas sin problema. Los archivos HTML deben servirse desde una URL pública (GitHub Pages) porque al abrirlos directamente desde el disco (<code>file://...</code>) el navegador bloquea las llamadas a APIs externas.
   </div>
 </div>
 </body>

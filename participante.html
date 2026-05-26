@@ -127,8 +127,8 @@
 <div class="toast" id="toast"></div>
 
 <script>
-var BIN_ID   = 'JSONBIN_BIN_ID_PLACEHOLDER';
-var API_KEY  = 'JSONBIN_API_KEY_PLACEHOLDER';
+var SUPABASE_URL      = 'https://afxbpdhintdwxmrtkaeu.supabase.co';
+var SUPABASE_ANON_KEY = 'sb_publishable_ghXRI4MBaUZ0pKd0tutVBw_dmnkffAP';
 
 var QUESTIONS = ['a1','a2','a3','b1','b2','b3','b4','b5','c1','c2','c3','c4','d1','d2','d3','d4'];
 var MEANINGS  = {1:'Aún no existe o es muy incipiente',2:'Existe pero de forma informal',3:'Proceso definido, aplicación inconsistente',4:'Proceso sólido, bien adoptado',5:'Referente de mejores prácticas'};
@@ -189,25 +189,18 @@ function submitResponses() {
     gaps: Object.assign({}, gaps)
   };
 
-  var url = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
-
-  fetch(url + '/latest', { headers: { 'X-Master-Key': API_KEY } })
+  fetch(SUPABASE_URL + '/rest/v1/participants', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(entry)
+  })
     .then(function(r){
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    })
-    .then(function(current){
-      var participants = (current.record && Array.isArray(current.record.participants))
-        ? current.record.participants : [];
-      participants.push(entry);
-      return fetch(url, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY },
-        body: JSON.stringify({ participants: participants })
-      });
-    })
-    .then(function(r){
-      if (!r.ok) throw new Error('HTTP ' + r.status);
+      if (!r.ok) return r.text().then(function(t){ throw new Error(t || ('HTTP ' + r.status)); });
       document.getElementById('form-area').style.display = 'none';
       document.getElementById('success-screen').style.display = 'block';
       document.getElementById('success-id').textContent = 'ID: ' + entry.id;

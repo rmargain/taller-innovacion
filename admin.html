@@ -88,7 +88,7 @@
   </div>
   <div class="topbar-actions">
     <a href="index.html" style="text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);border-radius:6px;transition:all .2s;" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--gold)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">← Inicio</a>
-    <button class="btn-refresh" style="border-color:#C84B5A;color:#C84B5A;background:rgba(200,75,90,.1);" onclick="initBin()">⚙ Inicializar Bin</button>
+    <button class="btn-refresh" style="border-color:#C84B5A;color:#C84B5A;background:rgba(200,75,90,.1);" onclick="initBin()">⚙ Reset Datos</button>
     <div style="display:flex;align-items:center;gap:6px"><div class="live-dot"></div><span class="live-label">EN VIVO</span></div>
     <button class="btn-refresh" id="refresh-btn" onclick="loadData()"><span>↺</span> Actualizar</button>
   </div>
@@ -171,26 +171,26 @@ const QIDS=Object.keys(QLABELS);
 const BLOCKS={a:{label:'A · Estrategia',qs:['a1','a2','a3'],color:'#C9A84C'},b:{label:'B · Proceso',qs:['b1','b2','b3','b4','b5'],color:'#C84B5A'},c:{label:'C · Lanzamiento',qs:['c1','c2','c3','c4'],color:'#3A8C68'},d:{label:'D · Medición',qs:['d1','d2','d3','d4'],color:'#3A6FA8'}};
 const STOPWORDS=new Set(['de','la','el','en','y','a','que','no','se','es','los','las','un','una','con','para','por','del','al','lo','como','más','pero','hay','tiene','su','sus','este','esta','nuestro','nuestra','muy','bien','sin','si','o','ni','esto','ya','puede','cuando','cada','les','son','está','fue','ser','han','todo','todos','toda','también','nos','me','tu','te','the','and','is','to','of','in','are','that','this','with','for','on','at','or','an','we','it','its','from','has','have','not','be','do','by','as','our','their','they','was','were','been','poco','solo','aún','falta']);
 
-const CFG={binId:'JSONBIN_BIN_ID_PLACEHOLDER',apiKey:'JSONBIN_API_KEY_PLACEHOLDER'};
+const CFG={url:'https://afxbpdhintdwxmrtkaeu.supabase.co',anonKey:'sb_publishable_ghXRI4MBaUZ0pKd0tutVBw_dmnkffAP'};
+const SB_HEADERS={'apikey':CFG.anonKey,'Authorization':'Bearer '+CFG.anonKey};
 let allParticipants=[];
 let activeWcBlock='all';
 
 async function initBin(){
   var pwd = prompt('Ingresa el password de administrador:');
   if (pwd === null) return;
-  if (pwd !== 'ADMIN_PASSWORD_PLACEHOLDER') {
-    showToast('❌ Password incorrecto');
-    return;
-  }
   if (!confirm('Esto borrará TODAS las respuestas. ¿Confirmas?')) return;
   try{
-    const r = await fetch('https://api.jsonbin.io/v3/b/' + CFG.binId, {
-      method: 'PUT',
-      headers: {'Content-Type':'application/json','X-Master-Key': CFG.apiKey},
-      body: JSON.stringify({participants:[]})
+    const r = await fetch(CFG.url + '/rest/v1/rpc/reset_participants', {
+      method: 'POST',
+      headers: Object.assign({'Content-Type':'application/json'}, SB_HEADERS),
+      body: JSON.stringify({p_password: pwd})
     });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    showToast('✓ Bin reseteado correctamente');
+    if (!r.ok) {
+      const err = await r.json().catch(()=>({}));
+      throw new Error(err.message || ('HTTP ' + r.status));
+    }
+    showToast('✓ Datos reseteados correctamente');
     loadData();
   } catch(e) {
     showToast('❌ Error: ' + e.message);
@@ -202,10 +202,10 @@ async function loadData(){
   const btn=document.getElementById('refresh-btn');
   btn.classList.add('spinning');
   try{
-    const r=await fetch('https://api.jsonbin.io/v3/b/'+CFG.binId+'/latest',{headers:{'X-Master-Key':CFG.apiKey}});
+    const r=await fetch(CFG.url+'/rest/v1/participants?select=*&order=timestamp.asc',{headers:SB_HEADERS,cache:'no-store'});
     if(!r.ok) throw new Error('HTTP '+r.status);
     const data=await r.json();
-    const participants=Array.isArray(data.record?.participants)?data.record.participants:[];
+    const participants=Array.isArray(data)?data:[];
     allParticipants=participants;
     renderDashboard(participants);
     document.getElementById('last-updated').textContent='Última actualización: '+new Date().toLocaleTimeString('es-MX');
